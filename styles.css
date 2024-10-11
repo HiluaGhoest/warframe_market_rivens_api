@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3f99f8;
+}
+
+
+.button {
+    
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+}
+
+.auction-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.auction-details {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+
+.dashboard-button {
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+
+.auctions-button {
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+
+#dashboard-container {
+    display: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#trackblock_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5vh;
+}
+
+.track-block {
+    background-color: #007bff;
+    color: white;
+    border-radius: 1vh;
+    width: 40%;
+    padding: 0.1vh;
+}
+
+.addtoDashboard {
+    background-color: #32CD32;
+}
+
+.addtoDashboard:hover {
+    background-color: #81d881;
+}
+
+.clear_button {
+    background-color: red;
+}
+
+.clear_button:hover {
+    background-color: rgb(248, 128, 128);
+}
+
+input {
+    background-color: white;
+    border: solid black 0.1vh;
+    border-radius: 1vh;
+}

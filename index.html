@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warframe Auctions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" id="auction-container">
+        <button class="dashboard-button button" onclick="hideauctions()">Go to dashboard</button>
+        <h1>Riven Auctions</h1>
+        <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name"></input>
+        <button id="fetch-auctions" onclick="fetchAuctions()">Fetch Auctions</button>
+        <button onclick="addtodashboard()" class="addtoDashboard">Add to dashboard</button>
+        <div id="average-price">Average Price: 000</div>
+        <div id="auction-results" class="accordion"></div>
+    </div>
+    
+    <div class="container" id="dashboard-container">
+        <button class="auctions-button button" onclick="hidedashboard()">Go to Auctions</button>
+        <h1>Tracking Dashboard</h1>
+        <button onclick="stopfetching()" class="clear_button">Clear All</button>    
+        <br>
+        <div id="trackblock_wrapper">
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
