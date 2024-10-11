@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="discord">
+        <img src="discord.png" alt="" class="discord_img">
+        <p>the_funeral_pyre</p>
+    </div>
     <div class="container" id="auction-container">
         <button class="dashboard-button button" onclick="hideauctions()">Go to dashboard</button>
         <h1>Riven Auctions</h1>
-        <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name"></input>
+        <div class="cool-input">
+            <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name">
+            <div class="animated-border"></div>
+        </div>
         <button id="fetch-auctions" onclick="fetchAuctions()">Fetch Auctions</button>
         <button onclick="addtodashboard()" class="addtoDashboard">Add to dashboard</button>
         <div id="average-price">Average Price: 000</div>
@@ -23,7 +30,6 @@
         <button onclick="stopfetching()" class="clear_button">Clear All</button>    
         <br>
         <div id="trackblock_wrapper">
-
         </div>
     </div>
     <script src="script.js"></script>

@@ -81,10 +81,9 @@ function displayAuctions(data, weapon_name) {
         count++; // Increment the count of valid auctions
 
         const auctionItem = document.createElement('div');
-        auctionItem.className = 'auction-item';
+        auctionItem.classList.add("cool-purple", "auction-item");
 
         auctionItem.innerHTML = `
-            <p>Item: ${weapon_name} Riven</p>
             <p>Price: ${auction.buyout_price}</p>
             <p>Owner: ${auction.owner?.ingame_name || 'N/A'}</p>
             <a class="button" target="_blank" href="https://warframe.market/auction/${auction.id}">Auction</a>
@@ -151,7 +150,7 @@ function dashboarddisplayAuctions(data, weapon_name) {
         
         var trackid = weapon_name + "-track-block";
         var trackblock = document.getElementById(trackid) || document.createElement('div'); // Create if it doesn't exist
-        trackblock.className = 'track-block';
+        trackblock.classList.add("cool-purple", "track-block");
         trackblock.id = trackid;
 
         // Update trackblock innerHTML

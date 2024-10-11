@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -123,8 +127,88 @@ button:hover {
     background-color: rgb(248, 128, 128);
 }
 
-input {
-    background-color: white;
-    border: solid black 0.1vh;
-    border-radius: 1vh;
+.discord {
+    left: 80vw;
+    top: 5vh;
+    position: absolute;
+    text-align: center;
+}
+
+.discord_img {
+    width: 10vh;
+}
+
+.cool-input {
+    position: relative;
+    width: 300px;
+    height: 50px;
+}
+
+.cool-input input {
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.cool-input input:focus {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+.cool-input input:focus + .animated-border {
+    animation: border-animation 0.6s forwards;
+}
+
+.animated-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background-size: 400%;
+    z-index: 0;
+    transition: all 0.3s ease;
+}
+
+@keyframes border-animation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+/* Hover effect */
+.cool-input input:hover + .animated-border {
+    background-position: 100% 0%;
+}
+
+.cool-purple {
+    background-color: white; /* Deep purple base */
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    color: black;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.cool-purple:hover {
+    box-shadow: 0 0 20px rgba(155, 89, 182, 0.9), 
+                0 0 40px rgba(155, 89, 182, 0.7),
+                0 0 60px rgba(155, 89, 182, 0.5); /* Stronger glow on hover */
 }
