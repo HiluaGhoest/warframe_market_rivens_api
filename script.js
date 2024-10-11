@@ -24,7 +24,7 @@ function getWeaponNamesFromCookies() {
 // Function to fetch auctions based on weapon name
 async function fetchAuctions() {
     const weapon_name = document.querySelector('.weapon').value.toLowerCase().replace(/ /g, '_');
-    const url = `http://localhost/warframe_market_rivens_api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
+    const url = `proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
 
     try {
         const response = await fetch(url);
@@ -105,7 +105,7 @@ function displayAuctions(data, weapon_name) {
 async function dashboardfetch(weapon_name) {
     console.log("fetched " + weapon_name);
 
-    const url = `http://localhost/warframe_market_rivens_api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
+    const url = `proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
 
     try {
         const response = await fetch(url);
