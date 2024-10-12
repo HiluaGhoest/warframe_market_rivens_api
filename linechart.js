@@ -7,6 +7,13 @@ let colors = {};
 // Initialize the prices array
 _price_array = {};
 
+// Load chart data from localStorage
+if (localStorage.getItem('chartData')) {
+  chartData = JSON.parse(localStorage.getItem('chartData'));
+  _price_array = chartData._price_array;
+  colors = chartData.colors;
+}
+
 window.addEventListener('load', function() {
   console.log('Chart initialized');
   const ctx = document.getElementById("lineChart").getContext('2d');
@@ -14,7 +21,19 @@ window.addEventListener('load', function() {
   chart = new Chart(ctx, {
     type: "line",
     data: {
-      datasets: []
+      datasets: Object.keys(_price_array).map((weapon) => {
+        return {
+          label: weapon,
+          data: _price_array[weapon],
+          borderColor: colors[weapon],
+          backgroundColor: colors[weapon],
+          fill: false,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          borderWidth: 2,
+          pointBackgroundColor: colors[weapon], // Add this line to fill the dots
+        };
+      })
     },
     options: {
       scales: {
@@ -78,6 +97,13 @@ window.addEventListener('lowestPriceUpdate', (event) => {
       };
   });
 
+  // Save chart data to localStorage
+  chartData = {
+    _price_array: _price_array,
+    colors: colors
+  };
+  localStorage.setItem('chartData', JSON.stringify(chartData));
+
   // Call updateChart to refresh all weapons' data
   updateChart();
 });
@@ -118,5 +144,16 @@ window.addEventListener('removeWeaponFromGraph', function(event) {
         
         // Update the chart
         chart.update();
+
+        // Remove the weapon from the chart data
+        delete _price_array[weaponToRemove];
+        delete colors[weaponToRemove];
+
+        // Save chart data to localStorage
+        chartData = {
+          _price_array: _price_array,
+          colors: colors
+        };
+        localStorage.setItem('chartData ', JSON.stringify(chartData));
     }
 });

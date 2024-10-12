@@ -175,15 +175,25 @@ const weaponsModule = (() => {
                     const linkCell = document.createElement('td');
                     const linkButton = document.createElement('button');
 
-                    linkButton.textContent = 'SNIPE';
                     linkButton.onclick = () => {
-                      const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${calculateProfit(auction)} Platinum`;
-                      navigator.clipboard.writeText(textToCopy).then(() => {
-                        console.log('Text copied to clipboard');
-                      }).catch((err) => {
-                        console.error('Failed to copy text: ', err);
-                      });
-                    };
+                        const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                          console.log('Text copied to clipboard');
+                      
+                          // Create a popup notification
+                          const popup = document.createElement('div');
+                          popup.className = 'popup';
+                          popup.textContent = 'Text copied to clipboard!';
+                          document.body.appendChild(popup);
+                      
+                          // Auto-remove the popup after 2 seconds
+                          setTimeout(() => {
+                            popup.remove();
+                          }, 2000);
+                        }).catch((err) => {
+                          console.error('Failed to copy text: ', err);
+                        });
+                      };
                     linkCell.appendChild(linkButton);
                     row.appendChild(linkCell);
                     tableBody.appendChild(row);
