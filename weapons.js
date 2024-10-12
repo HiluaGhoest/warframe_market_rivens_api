@@ -1,6 +1,6 @@
 // weapons.js
 const weaponsModule = (() => {
-    const CACHE_DURATION = 5 * 1000; // 5 seconds in milliseconds
+    const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes in milliseconds
     const BATCH_SIZE = 10; // Number of weapons to fetch in a single batch
 
     let cachedAuctions = null;
@@ -197,7 +197,7 @@ const weaponsModule = (() => {
             lastFetchTime = currentTime;
 
             // Call fetchAllWeaponAuctions again after a short delay
-            setTimeout(fetchAllWeaponAuctions, 5000); // 5 seconds delay
+            setTimeout(fetchAllWeaponAuctions, 60000); // 1 minute delay
             console.log("RESTARTING");
             return allAuctions;
         } catch (error) {
