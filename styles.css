@@ -303,13 +303,13 @@ footer {
 }
 
 :root {
-    --darkModeColor: #242424;
-    --darkModeColorSec: #3a3a3a;
+    --darkModeColor: #3a3a3a;
+    --darkModeColorSec: #242424;
 }
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: var(--darkModeColor);
+    background-color: #1d1c1c;
     color: #fff;
   }
   
@@ -417,6 +417,7 @@ header {
 }
 
 table {
+    border-radius: 5%;
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 20px;
@@ -455,11 +456,32 @@ body.dark-mode td {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: var(--darkModeColor);
     border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    color: black;
-  }
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.popup h2 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.popup p {
+    font-size: 1rem;
+}
+
+.lowest_price_trackblock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

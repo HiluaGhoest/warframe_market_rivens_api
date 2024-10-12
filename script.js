@@ -192,7 +192,10 @@ function dashboarddisplayAuctions(data, weapon_name) {
 
     trackblock.innerHTML = `
         <p>${weapon_name}</p>
-        <p>${lowestPrice} Platinum</p>
+        <div class="lowest_price_trackblock">
+        <p>Cheapest Price: ${lowestPrice}</p>
+        <img src="images/platinum.webp" style="width: 10%; margin-bottom: 5px;">
+        </div>
         <button class="remove-button" onclick="removeTrackBlock('${weapon_name}')">Remove</button>
     `;
 

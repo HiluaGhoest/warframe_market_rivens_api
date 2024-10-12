@@ -165,6 +165,11 @@ const weaponsModule = (() => {
 
                     const profitCell = document.createElement('td');
                     profitCell.textContent = calculateProfit(auction);
+                    if (calculateProfit(auction) > 30) {
+                        profitCell.style.color = 'green';
+                    } else if (calculateProfit(auction) < 20) {
+                        profitCell.style.color = 'red';
+                    }
                     row.appendChild(profitCell);
 
                     const sellerCell = document.createElement('td');
@@ -179,13 +184,13 @@ const weaponsModule = (() => {
                     linkButton.onclick = () => {
                         const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
                         navigator.clipboard.writeText(textToCopy).then(() => {
-                          console.log('Text copied to clipboard');
-                      
-                          // Create a popup notification
-                          const popup = document.createElement('div');
-                          popup.className = 'popup';
-                          popup.textContent = 'Text copied to clipboard!';
-                          document.body.appendChild(popup);
+                            console.log('Ctrl + V in game chat!');
+
+                            // Create a popup notification
+                            const popup = document.createElement('div');
+                            popup.className = 'popup';
+                            popup.textContent = 'Text copied to clipboard!';
+                            document.body.appendChild(popup);
                       
                           // Auto-remove the popup after 2 seconds
                           setTimeout(() => {

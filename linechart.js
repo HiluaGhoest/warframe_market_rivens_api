@@ -61,7 +61,7 @@ window.addEventListener('load', function() {
 
 function getPrices(weapon) {
   // If the array is full, remove the first element
-  if (_price_array[weapon] && _price_array[weapon].length >= 24) {
+  if (_price_array[weapon] && _price_array[weapon].length >= 50) {
     _price_array[weapon].shift();
   }
 
