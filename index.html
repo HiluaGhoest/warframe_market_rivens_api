@@ -22,12 +22,31 @@
     
     <div class="container" id="dashboard-container">
         <button class="auctions-button button" onclick="hidedashboard()">Go to Auctions</button>
+        <button class="auctions-button button" onclick="showGraph()">Show Graph</button>
         <h1>Tracking Dashboard</h1>
         <button onclick="stopfetching()" class="clear_button">Clear All</button>    
         <br>
         <div id="trackblock_wrapper">
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div id="graph_interface" style="display: none;">
+        <button class="graph-button button" onclick="hideGraph()">Hide Graph</button>
+        <canvas id="lineChart" width="200" height="70"></canvas>
+    </div>  
+    <footer id="footer" style="display: none;">
+        <p class="graph_text">
+        <span>Graph Note:</span>
+        The graph might take up to 1 minute to start running.
+        <br>
+        It only updates when the price of something fluctuates.
+        <br>
+        Don't worry, you can do whatever you want, it will keep running (unless you reload the page).
+        </p>
+    </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="linechart.js"></script>
+<script src="script.js"></script>
 </html>

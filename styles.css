@@ -104,11 +104,46 @@ button:hover {
 }
 
 .track-block {
-    background-color: #007bff;
-    color: white;
-    border-radius: 1vh;
-    width: 40%;
-    padding: 0.1vh;
+    background-color: #ffffff;
+    color: #333333;
+    border-radius: 12px;
+    width: 20%;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.track-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.track-block h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.track-block p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.track-block .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+    margin: 10px 0;
+}
+
+.track-block .icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #007bff;
 }
 
 .addtoDashboard {
@@ -195,20 +230,37 @@ button:hover {
     background-position: 100% 0%;
 }
 
-.cool-purple {
-    background-color: white; /* Deep purple base */
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 15px;
-    color: black;
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
-    transition: all 0.3s ease;
+#graph_interface {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.cool-purple:hover {
-    box-shadow: 0 0 20px rgba(155, 89, 182, 0.9), 
-                0 0 40px rgba(155, 89, 182, 0.7),
-                0 0 60px rgba(155, 89, 182, 0.5); /* Stronger glow on hover */
+.graph-button {
+    margin-top: 3vh;
 }
+
+footer {
+    background-color: #fff;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    border-top: 1px solid #ddd;
+    width: 100vw;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .graph_text {
+    margin: 0;
+  }
+  
+  .graph_text span {
+    font-weight: bold;
+    color: #333;
+  }
