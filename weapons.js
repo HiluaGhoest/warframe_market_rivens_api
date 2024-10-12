@@ -174,6 +174,7 @@ const weaponsModule = (() => {
 
                     const linkCell = document.createElement('td');
                     const linkButton = document.createElement('button');
+                    linkButton.textContent = "SNIPE"
 
                     linkButton.onclick = () => {
                         const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;

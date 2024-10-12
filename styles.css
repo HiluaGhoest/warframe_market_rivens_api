@@ -278,8 +278,8 @@ footer {
 
   #loading-icon {
     position: fixed;
-    top: 10%;
-    left: 85%;
+    top: 6%;
+    left: 93%;
     transform: translate(-50%, -50%);
     z-index: 9999;
 }
@@ -461,4 +461,5 @@ body.dark-mode td {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    color: black;
   }
