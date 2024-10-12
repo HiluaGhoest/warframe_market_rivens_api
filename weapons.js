@@ -175,8 +175,15 @@ const weaponsModule = (() => {
                     const linkCell = document.createElement('td');
                     const linkButton = document.createElement('button');
 
-                    linkButton.textContent = 'View Auction';
-                    linkButton.onclick = () => window.open(`https://warframe.market/auction/${auction.auction.id}`, '_blank');
+                    linkButton.textContent = 'SNIPE';
+                    linkButton.onclick = () => {
+                      const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${calculateProfit(auction)} Platinum`;
+                      navigator.clipboard.writeText(textToCopy).then(() => {
+                        console.log('Text copied to clipboard');
+                      }).catch((err) => {
+                        console.error('Failed to copy text: ', err);
+                      });
+                    };
                     linkCell.appendChild(linkButton);
                     row.appendChild(linkCell);
                     tableBody.appendChild(row);
