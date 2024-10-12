@@ -50,38 +50,43 @@ function getPrices(weapon) {
 }
 
 window.addEventListener('lowestPriceUpdate', (event) => {
-    const { weapon, price, timestamp } = event.detail;
-    console.log(`Lowest price for ${weapon}: ${price} at ${timestamp}`);
-  
-    // Parse the timestamp using moment
-    const momentTime = moment(timestamp);
-    const formattedTime = momentTime.format('HH:mm A');
-  
-    // Add the price to the chartData
-    if (!_price_array[weapon]) {
+  const { weapon, price, timestamp } = event.detail;
+  console.log(`Lowest price for ${weapon}: ${price} at ${timestamp}`);
+
+  // Parse the timestamp using moment
+  const momentTime = moment(timestamp);
+  const formattedTime = momentTime.format('HH:mm A');
+
+  // Add the price to the chartData
+  if (!_price_array[weapon]) {
       _price_array[weapon] = [];
       colors[weapon] = getRandomColor();
-    }
-    _price_array[weapon].push({ x: momentTime, y: price });
-  
-    // Update the chart data
-    chart.data.datasets = Object.keys(_price_array).map((weapon) => {
+  }
+  _price_array[weapon].push({ x: momentTime, y: price });
+
+  // Update the chart data
+  chart.data.datasets = Object.keys(_price_array).map((weapon) => {
       return {
-        label: weapon,
-        data: _price_array[weapon],
-        borderColor: colors[weapon],
-        fill: false
+          label: weapon,
+          data: _price_array[weapon],
+          borderColor: colors[weapon],
+          backgroundColor: colors[weapon],
+          fill: false,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          borderWidth: 2,
+          pointBackgroundColor: colors[weapon], // Add this line to fill the dots
       };
-    });
-    chart.update();
   });
 
-function updateChart(lowestValues) {
-  if (lowestValues) {
-    console.log('Updating chart');
-    // Update the chart
-    chart.update();
-  }
+  // Call updateChart to refresh all weapons' data
+  updateChart();
+});
+
+function updateChart() {
+  console.log('Updating chart for all weapons');
+  // Update the chart
+  chart.update();
 }
 
 let index = 0;

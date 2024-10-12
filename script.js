@@ -310,6 +310,31 @@ function hideLoadingIcon() {
     document.getElementById('loading-icon').style.display = 'none';
 }
 
+// Function to toggle dark mode
+function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    const darkModeCookie = getCookie('dark-mode');
+    if (darkModeCookie === 'true') {
+      setCookie('dark-mode', 'false', 7);
+    } else {
+      setCookie('dark-mode', 'true', 7);
+    }
+  }
+  
+  // Check if dark mode is enabled in cookies and enable it if so
+  const darkModeCookie = getCookie('dark-mode');
+  if (darkModeCookie === 'true') {
+    document.body.classList.add('dark-mode');
+  }
+  
+  // Add a button to toggle dark mode
+  const darkModeButton = document.createElement('button');
+  darkModeButton.textContent = 'Toggle Dark Mode';
+  darkModeButton.onclick = toggleDarkMode;
+  darkModeButton.id = "dark-mode-button"
+  document.body.appendChild(darkModeButton);
+
 // Function to load weapons from cookies on page load
 function loadWeaponsFromCookies() {
     const weaponNames = getWeaponNamesFromCookies();
