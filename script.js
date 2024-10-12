@@ -240,7 +240,7 @@ function removeTrackBlock(weapon_name) {
 const intervals = {};
 
 // Function to add a weapon to the dashboard
-function addtodashboard(weapon_name = null) {
+function addtodashboard(weapon_name = null, showAlert = false) {
     if (!weapon_name) {
         weapon_name = document.querySelector('.weapon').value;
     }
@@ -254,14 +254,16 @@ function addtodashboard(weapon_name = null) {
     }
 
     if (!intervals[trimmed_weapon_name]) {
-        alert("Now fetching: " + weapon_name);
+        if (showAlert) {
+            alert("Now fetching: " + weapon_name);
+        }
         showLoadingIcon(); // Show loading icon before initial fetch
         dashboardfetch(trimmed_weapon_name); // Fetch immediately
         intervals[trimmed_weapon_name] = setInterval(() => {
             dashboardfetch(trimmed_weapon_name);
         }, 10 * 1 * 1000);
         storeIntervals();
-    } else {
+    } else if (showAlert) {
         alert("Can't fetch, weapon already listed: " + weapon_name);
     }
 }
@@ -313,7 +315,7 @@ function loadWeaponsFromCookies() {
     const weaponNames = getWeaponNamesFromCookies();
     weaponNames.forEach(weapon_name => {
         const trimmed_weapon_name = weapon_name.toLowerCase().replace(/ /g, '_');
-        addtodashboard(trimmed_weapon_name); // Pass the weapon name from the cookie
+        addtodashboard(trimmed_weapon_name, false); // Pass false to not show the alert
     });
 }
 // Load weapons when the page is loaded
