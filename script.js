@@ -14,7 +14,6 @@ window.onload = function() {
         dashboardfetch(weaponName);
       }, 10 * 1 * 1000); // Update every 10 seconds
     });
-    console.log('Intervals:', intervals); // Add this line to verify the intervals object
   }
 };
 
@@ -46,12 +45,10 @@ async function fetchAuctions() {
 
     try {
         const response = await fetch(url);
-        console.log(response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log(data);
         displayAuctions(data.payload, weapon_name);
 
         window.dispatchEvent(new Event('load'));
@@ -129,20 +126,16 @@ async function dashboardfetch(weapon_name = null) {
         return;
     }
     showLoadingIcon();
-    console.log("fetched " + weapon_name);
 
     const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
 
     try {
         const response = await fetch(url);
-        console.log(response);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log(data);
         dashboarddisplayAuctions(data.payload, weapon_name);
-        console.log(data.payload);
         updateChart(data.payload);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -277,29 +270,33 @@ function storeIntervals() {
 }
 
 // Function to hide auctions
-function hideauctions() {
-    document.getElementById('dashboard-container').style.display = 'flex';
-    document.getElementById('auction-container').style.display = 'none';
+function showAuction() {
+    document.getElementById('auction-container').style.display = 'flex';
+    document.getElementById('dashboard-container').style.display = 'none';
+    document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('all-weapon-data').style.display = 'none';
 }
 
 // Function to hide dashboard
-function hidedashboard() {
-    document.getElementById('auction-container').style.display = 'flex';
-    document.getElementById('dashboard-container').style.display = 'none';
+function showDashboard() {
+    document.getElementById('auction-container').style.display = 'none';
+    document.getElementById('dashboard-container').style.display = 'flex';
+    document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('all-weapon-data').style.display = 'none';
 }
 
 function showGraph() {
     document.getElementById('auction-container').style.display = 'none';
     document.getElementById('dashboard-container').style.display = 'none';
     document.getElementById('graph_interface').style.display = "flex";
-    document.getElementById('footer').style.display = "flex";
+    document.getElementById('all-weapon-data').style.display = 'none';
 }
 
-function hideGraph() {
-    document.getElementById('graph_interface').style.display = "none";
-    document.getElementById('footer').style.display = "none";
+function showTable() {
     document.getElementById('auction-container').style.display = 'none';
-    document.getElementById('dashboard-container').style.display = 'flex';
+    document.getElementById('dashboard-container').style.display = 'none';
+    document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('all-weapon-data').style.display = 'flex';
 }
 
 function showLoadingIcon() {
@@ -333,7 +330,7 @@ function toggleDarkMode() {
   darkModeButton.textContent = 'Toggle Dark Mode';
   darkModeButton.onclick = toggleDarkMode;
   darkModeButton.id = "dark-mode-button"
-  document.body.appendChild(darkModeButton);
+  document.getElementById("real-header").appendChild(darkModeButton);
 
 // Function to load weapons from cookies on page load
 function loadWeaponsFromCookies() {

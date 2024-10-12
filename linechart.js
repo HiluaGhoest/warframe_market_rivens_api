@@ -51,7 +51,6 @@ function getPrices(weapon) {
 
 window.addEventListener('lowestPriceUpdate', (event) => {
   const { weapon, price, timestamp } = event.detail;
-  console.log(`Lowest price for ${weapon}: ${price} at ${timestamp}`);
 
   // Parse the timestamp using moment
   const momentTime = moment(timestamp);
@@ -84,7 +83,6 @@ window.addEventListener('lowestPriceUpdate', (event) => {
 });
 
 function updateChart() {
-  console.log('Updating chart for all weapons');
   // Update the chart
   chart.update();
 }

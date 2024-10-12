@@ -16,6 +16,7 @@ body {
     overflow-x: hidden;
 }
 
+
 .container {
     width: 80%;
     margin: 0 auto;
@@ -67,7 +68,7 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
-    background-color: #f1f1f1;
+    background-color: transparent;
     cursor: pointer;
 
     display: flex;
@@ -244,6 +245,7 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -5%;
 }
 
 .graph-button {
@@ -312,8 +314,8 @@ body.dark-mode {
   }
   
   body.dark-mode .container {
-    background-color: var(--darkModeColor);
-    border-color: var(--darkModeColorSec);
+    background-color: var(--darkModeColorSec);
+    border-color: var(--darkModeColor);
   }
   
   body.dark-mode .track-block {
@@ -342,6 +344,10 @@ body.dark-mode {
   
   body.dark-mode .graph_text span {
     color: #ccc;
+  }
+
+  body.dark-mode header .real-header {
+    background-color: var(--darkModeColorSec);
   }
   
   body.dark-mode footer {
@@ -373,7 +379,39 @@ body.dark-mode {
   }
 
   #dark-mode-button {
-    position: absolute;
-    top: 94.5%;
-    left: 1%;
+    background-color: var(--darkModeColor);
   }
+
+  
+header {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.real-header {
+    
+    align-self: center;
+    justify-self: center;
+    width: 90%;
+    height: 20%;
+    background-color: white;
+    margin-bottom: 5%;
+    
+    margin-bottom: 5%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 3vh;
+}
+
+#all-weapon-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
