@@ -102,3 +102,18 @@ function getRandomColor() {
     }
     return color;
   }
+
+window.addEventListener('removeWeaponFromGraph', function(event) {
+    const weaponToRemove = event.detail.weapon;
+    
+    // Find the index of the dataset to remove
+    const datasetIndex = chart.data.datasets.findIndex(dataset => dataset.label.toLowerCase().replace(/ /g, '_') === weaponToRemove);
+    
+    if (datasetIndex !== -1) {
+        // Remove the dataset
+        chart.data.datasets.splice(datasetIndex, 1);
+        
+        // Update the chart
+        chart.update();
+    }
+});

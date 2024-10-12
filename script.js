@@ -40,26 +40,28 @@ function getWeaponNamesFromCookies() {
 
 // Function to fetch auctions based on weapon name
 async function fetchAuctions() {
+    showLoadingIcon();
     const weapon_name = document.querySelector('.weapon').value.toLowerCase().replace(/ /g, '_');
-    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
-  
+    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
+
     try {
-      const response = await fetch(url);
-      console.log(response); // Log the response object
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      console.log(data); // Log the data to check its structure
-      displayAuctions(data.payload, weapon_name); // Pass the weapon_name to displayAuctions
-  
-      // Call the linechart.js file
-      window.dispatchEvent(new Event('load'));
+        const response = await fetch(url);
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data);
+        displayAuctions(data.payload, weapon_name);
+
+        window.dispatchEvent(new Event('load'));
     } catch (error) {
-      console.error('Error fetching data:', error);
-      document.getElementById('auction-results').innerHTML = '<p>Error fetching data. Please try again later.</p>';
+        console.error('Error fetching data:', error);
+        document.getElementById('auction-results').innerHTML = '<p>Error fetching data. Please try again later.</p>';
+    } finally {
+        hideLoadingIcon();
     }
-  }
+}
 
 // Function to display auctions
 function displayAuctions(data, weapon_name) {
@@ -126,26 +128,29 @@ async function dashboardfetch(weapon_name = null) {
     if (!weapon_name) {
         return;
     }
+    showLoadingIcon();
     console.log("fetched " + weapon_name);
-  
-    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`; // Adjust the path if necessary
-  
+
+    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
+
     try {
-      const response = await fetch(url);
-      console.log(response); // Log the response object
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      console.log(data); // Log the data to check its structure
-      dashboarddisplayAuctions(data.payload, weapon_name); // Pass the weapon_name to dashboarddisplayAuctions
-      console.log(data.payload); // Log the data before passing it to updateChart
-      updateChart(data.payload); // Call updateChart function
+        const response = await fetch(url);
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data);
+        dashboarddisplayAuctions(data.payload, weapon_name);
+        console.log(data.payload);
+        updateChart(data.payload);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      document.getElementById('auction-results').innerHTML = '<p>Error fetching data. Please try again later.</p>';
+        console.error('Error fetching data:', error);
+        document.getElementById('auction-results').innerHTML = '<p>Error fetching data. Please try again later.</p>';
+    } finally {
+        hideLoadingIcon();
     }
-  }
+}
 
 // Function to display dashboard auctions
 function dashboarddisplayAuctions(data, weapon_name) {
@@ -188,21 +193,49 @@ function dashboarddisplayAuctions(data, weapon_name) {
     }
   
     var trackid = weapon_name + "-track-block";
-    var trackblock = document.getElementById(trackid) || document.createElement('div'); // Create if it doesn't exist
+    var trackblock = document.getElementById(trackid) || document.createElement('div');
     trackblock.classList.add("cool-purple", "track-block");
     trackblock.id = trackid;
-  
+
     trackblock.innerHTML = `
-      <p>${weapon_name}</p>
-      <p>${lowestPrice} Platinum</p>
+        <p>${weapon_name}</p>
+        <p>${lowestPrice} Platinum</p>
+        <button class="remove-button" onclick="removeTrackBlock('${weapon_name}')">Remove</button>
     `;
-  
+
     // Append to the dashboard if not already added
     if (!document.getElementById(trackid)) {
-      document.getElementById("trackblock_wrapper").appendChild(trackblock);
+        document.getElementById("trackblock_wrapper").appendChild(trackblock);
     }
   }
 
+// Add this new function to handle removing a track block
+function removeTrackBlock(weapon_name) {
+    const trimmed_weapon_name = weapon_name.toLowerCase().replace(/ /g, '_');
+    
+    // Remove the track block from the DOM
+    const trackBlock = document.getElementById(trimmed_weapon_name + "-track-block");
+    if (trackBlock) {
+        trackBlock.remove();
+    }
+
+    // Clear the interval for this weapon
+    if (intervals[trimmed_weapon_name]) {
+        clearInterval(intervals[trimmed_weapon_name]);
+        delete intervals[trimmed_weapon_name];
+    }
+
+    // Remove the weapon from cookies
+    let existingWeapons = getWeaponNamesFromCookies();
+    existingWeapons = existingWeapons.filter(weapon => weapon !== trimmed_weapon_name);
+    setCookie('weapon_names', existingWeapons.join(','), 7);
+
+    // Update the intervals cookie
+    storeIntervals();
+
+    // Dispatch an event to remove the weapon from the graph
+    window.dispatchEvent(new CustomEvent('removeWeaponFromGraph', { detail: { weapon: trimmed_weapon_name } }));
+}
 // Object to store the intervals for each weapon
 const intervals = {};
 
@@ -213,23 +246,24 @@ function addtodashboard(weapon_name = null) {
     }
     const trimmed_weapon_name = weapon_name.toLowerCase().replace(/ /g, '_');
 
-    // Get existing weapon names from cookies
     let existingWeapons = getWeaponNamesFromCookies();
 
-    // Add the new weapon name to the cookies if it doesn't already exist
     if (!existingWeapons.includes(trimmed_weapon_name)) {
         existingWeapons.push(trimmed_weapon_name);
-        setCookie('weapon_names', existingWeapons.join(','), 7); // Store for 7 days
+        setCookie('weapon_names', existingWeapons.join(','), 7);
     }
 
-    // Check if an interval for this weapon already exists
     if (!intervals[trimmed_weapon_name]) {
+        alert("Now fetching: " + weapon_name);
+        showLoadingIcon(); // Show loading icon before initial fetch
+        dashboardfetch(trimmed_weapon_name); // Fetch immediately
         intervals[trimmed_weapon_name] = setInterval(() => {
             dashboardfetch(trimmed_weapon_name);
-        }, 10 * 1 * 1000); // Update every 10 seconds
-        storeIntervals(); // Store the intervals in cookies
+        }, 10 * 1 * 1000);
+        storeIntervals();
+    } else {
+        alert("Can't fetch, weapon already listed: " + weapon_name);
     }
-    
 }
 
 function storeIntervals() {
@@ -264,6 +298,14 @@ function hideGraph() {
     document.getElementById('footer').style.display = "none";
     document.getElementById('auction-container').style.display = 'none';
     document.getElementById('dashboard-container').style.display = 'flex';
+}
+
+function showLoadingIcon() {
+    document.getElementById('loading-icon').style.display = 'block';
+}
+
+function hideLoadingIcon() {
+    document.getElementById('loading-icon').style.display = 'none';
 }
 
 // Function to load weapons from cookies on page load
