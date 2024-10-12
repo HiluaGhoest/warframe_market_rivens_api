@@ -327,7 +327,7 @@ function toggleDarkMode() {
   
   // Add a button to toggle dark mode
   const darkModeButton = document.createElement('button');
-  darkModeButton.textContent = 'Toggle Dark Mode';
+  darkModeButton.textContent = 'Dark Mode';
   darkModeButton.onclick = toggleDarkMode;
   darkModeButton.id = "dark-mode-button"
   document.getElementById("real-header").appendChild(darkModeButton);
