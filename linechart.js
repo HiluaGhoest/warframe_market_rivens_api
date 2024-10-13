@@ -136,10 +136,10 @@ function showPopup(weapon, price, previousPrice) {
     document.getElementById("popupWrapper").appendChild(popup);
   if (previousPrice !== null) {
     if (price > previousPrice) {
-      document.getElementById("price_popup_text").style.color = "red";
+      document.getElementById("price_popup_text").style.color = "green";
       playSound('audio/raise.mp3');
     } else if (price < previousPrice) {
-      document.getElementById("price_popup_text").style.color = "green";
+      document.getElementById("price_popup_text").style.color = "red";
       playSound('audio/drop.mp3');
     }
   }
