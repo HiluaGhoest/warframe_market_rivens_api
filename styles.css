@@ -451,34 +451,6 @@ body.dark-mode td {
     color: #fff;
 }
 
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--darkModeColor);
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 2vh;
-}
-
-.popup h2 {
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-.popup p {
-    font-size: 1rem;
-}
-
 .lowest_price_trackblock {
     display: flex;
     flex-direction: row;
@@ -506,7 +478,7 @@ body.dark-mode td {
     padding: 1%;
     position: relative;
     left: -1%;
-    transition: all 0.2s, opacity 1s ease-out;
+    transition: all 0.2s;
 
     margin: 0.5% 1% 0 0;
     background-color: white;
@@ -544,4 +516,45 @@ body.dark-mode #priceChangePopup{
 #popupPriceWrapper {
     display: flex;
     flex-direction: row;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background-size: 400%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vh;
+    
+    transition: all 0.3s ease;
+    animation: border-animation 6s infinite;
+}
+
+.popup h2 {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.popup p {
+    font-size: 1rem;
+}
+
+.green-popup {
+    color: green;
+  }
+  
+.red-popup {
+color: red;
 }

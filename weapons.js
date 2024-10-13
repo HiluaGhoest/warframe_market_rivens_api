@@ -201,7 +201,7 @@ const weaponsModule = (() => {
                         
                                 // Create a popup notification
                                 const popup = document.createElement('div');
-                                popup.className = 'animated-popup-border';
+                                popup.className = 'popup';
                                 popup.textContent = 'Ctrl + V in game chat!';
                                 document.body.appendChild(popup);
                               
@@ -277,12 +277,12 @@ const weaponsModule = (() => {
                         linkButton.onclick = () => {
                             const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
                             navigator.clipboard.writeText(textToCopy).then(() => {
-                                console.log('Ctrl + V in game chat! ');
+                                console.log('Text copied to clipboard!');
     
                                 // Create a popup notification
                                 const popup = document.createElement('div');
                                 popup.className = 'popup';
-                                popup.textContent = 'Text copied to clipboard!';
+                                popup.textContent = 'Ctrl + V in game chat!';
                                 document.body.appendChild(popup);
                           
                               // Auto-remove the popup after 2 seconds
