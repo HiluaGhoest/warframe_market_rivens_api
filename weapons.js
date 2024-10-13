@@ -216,7 +216,7 @@ const weaponsModule = (() => {
 
                         
                         const trackCell = existingRow.cells[7];
-                        const trackButton = document.querySelector('button');
+                        const trackButton = trackCell.querySelector('button');
                         trackButton.textContent = 'Track'
                         trackButton.onclick = () => {
                             addtodashboard(weaponCell.textContent, true);
