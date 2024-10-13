@@ -180,9 +180,10 @@ function dashboarddisplayAuctions(data, weapon_name) {
     // Check if the lowest price has changed
     if (!_previousLowestPrices.hasOwnProperty(weapon_name) || lowestPrice !== _previousLowestPrices[weapon_name]) {
       // Store the new lowest price
+      var _oldPreviousLowestPrices = _previousLowestPrices[weapon_name]
       _previousLowestPrices[weapon_name] = lowestPrice;
       // Send the lowest price to linechart.js
-      window.dispatchEvent(new CustomEvent('lowestPriceUpdate', { detail: { weapon: weapon_name, price: lowestPrice, timestamp: new Date().getTime() } }));
+      window.dispatchEvent(new CustomEvent('lowestPriceUpdate', { detail: { weapon: weapon_name, _previousLowestPrices : _oldPreviousLowestPrices, price: lowestPrice, timestamp: new Date().getTime() } }));
     }
   
     var trackid = weapon_name + "-track-block";
