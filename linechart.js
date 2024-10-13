@@ -129,7 +129,7 @@ function showPopup(weapon, price, previousPrice) {
           <br>
           <div id="popupPriceWrapper">
             <p id="price_popup_text">New price: ${price}</p>
-            <img src="images/platinum.webp" style="width: 10%;">
+            <img src="images/platinum.webp" class="priceWrapperPlatinumImage">
           </div>
         </div>
     `

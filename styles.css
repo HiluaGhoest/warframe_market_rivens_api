@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 .track-block h3, .graph_text span {
   font-family: 'Merriweather', serif;
@@ -285,6 +286,7 @@ body:not(.dark-mode) .addtoDashboard:hover {
     justify-content: center;
     align-items: center;
     margin-top: -5%;
+    padding: 3%;
 }
 
 .graph-button {
@@ -465,7 +467,7 @@ header {
 }
 table {
     
-    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background: transparent;
     background-size: 400%;
     border: none;
     border-radius: 20px;
@@ -493,7 +495,7 @@ th {
 }
 
 td {
-    background-color: #fff;
+    background-color: #ececec;
 }
 
 th, td {
@@ -726,9 +728,18 @@ body.dark-mode #track-control-panel-weapons-wrapper .track-control-weapon{
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 * {
-    font-family: 'Great Vibes', cursive;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 h1 {
-    font-family: 'Great Vibes', normal;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.priceWrapperPlatinumImage {
+    width: 15%;
+    height: 15%;
 }
