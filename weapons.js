@@ -109,105 +109,148 @@ const weaponsModule = (() => {
     async function fetchAllWeaponAuctions() {
         console.log("Starting to fetch all weapon auctions");
         const currentTime = Date.now();
-
+    
         if (cachedAuctions && (currentTime - lastFetchTime < CACHE_DURATION)) {
             console.log("Returning cached auctions");
-
+    
             return cachedAuctions;
         }
-
+    
         const loadingIcon = document.getElementById('loading-icon');
         loadingIcon.style.display = 'flex';
-
+    
         try {
             console.log("Fetching list of weapons");
-
+    
             const weaponsResponse = await fetch('api/proxy.php');
             const weaponsData = await weaponsResponse.json();
             const weapons = weaponsData.payload.items;
             console.log(`Fetched ${weapons.length} weapons`);
-
+    
             const allAuctions = [];
             const tableBody = document.querySelector('#all-weapon-data table tbody');
-            tableBody.innerHTML = ''; // Clear existing rows
-
-
+    
             for (let i = 0; i < weapons.length; i += BATCH_SIZE) {
                 const batch = weapons.slice(i, Math.min(i + BATCH_SIZE, weapons.length));
                 const batchAuctions = await fetchWeaponAuctions(batch);
                 allAuctions.push(...batchAuctions);
-
+    
                 batchAuctions.forEach((auction, index) => {
                     if (index < 5) {
                         console.log(`Auction ${index + 1}:`, auction); // Log first 5 auctions for detailed inspection
                     }
-
-                    const row = document.createElement('tr');                    
-
-                    const weaponCell = document.createElement('td');
-                    weaponCell.textContent = auction.weapon;
-                    row.appendChild(weaponCell);
-
-                    const priceCell = document.createElement('td');
-                    priceCell.textContent = auction.auction.starting_price;
-                    row.appendChild(priceCell);
-
-                    const secondPriceCell = document.createElement('td');
-                    secondPriceCell.textContent = auction.secondAuction ? auction.secondAuction.starting_price : '-';
-                    row.appendChild(secondPriceCell);
-
-                    const profitCell = document.createElement('td');
-                    profitCell.textContent = calculateProfit(auction);
-                    if (calculateProfit(auction) > 30) {
-                        profitCell.style.color = 'green';
-                    } else if (calculateProfit(auction) < 20) {
-                        profitCell.style.color = 'red';
+    
+                    // Find the existing row for the auction
+                    const existingRow = Array.from(tableBody.rows).find(row => row.cells[0].textContent === auction.weapon);
+    
+                    if (existingRow) {
+                        // Update the existing row
+                        const priceCell = existingRow.cells[1];
+                        priceCell.textContent = auction.auction.starting_price;
+                        
+                        const secondPriceCell = existingRow.cells[2];
+                        secondPriceCell.textContent = auction.secondAuction ? auction.secondAuction.starting_price : '-';
+                        
+                        const profitCell = existingRow.cells[3];
+                        profitCell.textContent = calculateProfit(auction);
+                        if (calculateProfit(auction) > 30) {
+                            profitCell.style.color = 'green';
+                        } else if (calculateProfit(auction) < 20) {
+                            profitCell.style.color = 'red';
+                        }
+                        
+                        const sellerCell = existingRow.cells[4];
+                        sellerCell.textContent = auction.auction.owner.ingame_name;
+                        
+                        const linkCell = existingRow.cells[5];
+                        const linkButton = linkCell.querySelector('button');
+                        linkButton.textContent = "SNIPE";
+                        linkButton.onclick = () => {
+                            const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
+                            navigator.clipboard.writeText(textToCopy).then(() => {
+                                console.log('Ctrl + V in game chat!');
+                        
+                                // Create a popup notification
+                                const popup = document.createElement('div');
+                                popup.className = 'popup';
+                                popup.textContent = 'Text copied to clipboard!';
+                                document.body.appendChild(popup);
+                              
+                              // Auto-remove the popup after 2 seconds
+                              setTimeout(() => {
+                                popup.remove();
+                              }, 2000);
+                            }).catch((err) => {
+                              console.error('Failed to copy text: ', err);
+                            });
+                          };
+                    } else {
+                        // Create a new row
+                        const row = document.createElement('tr');                    
+    
+                        const weaponCell = document.createElement('td');
+                        weaponCell.textContent = auction.weapon;
+                        row.appendChild(weaponCell);
+    
+                        const priceCell = document.createElement('td');
+                        priceCell.textContent = auction.auction.starting_price;
+                        row.appendChild(priceCell);
+    
+                        const secondPriceCell = document.createElement('td');
+                        secondPriceCell.textContent = auction.secondAuction ? auction.secondAuction.starting_price : '-';
+                        row.appendChild(secondPriceCell);
+    
+                        const profitCell = document.createElement('td');
+                        profitCell.textContent = calculateProfit(auction);
+                        if (calculateProfit(auction) > 30) {
+                            profitCell.style.color = 'green';
+                        } else if (calculateProfit(auction) < 20) {
+                            profitCell.style.color = 'red';
+                        }
+                        row.appendChild(profitCell);
+    
+                        const sellerCell = document.createElement('td');
+    
+                        sellerCell.textContent = auction.auction.owner.ingame_name;
+                        row.appendChild(sellerCell);
+    
+                        const linkCell = document.createElement('td');
+                        const linkButton = document.createElement('button');
+                        linkButton.textContent = "SNIPE"
+    
+                        linkButton.onclick = () => {
+                            const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
+                            navigator.clipboard.writeText(textToCopy).then(() => {
+                                console.log('Ctrl + V in game chat! ');
+    
+                                // Create a popup notification
+                                const popup = document.createElement('div');
+                                popup.className = 'popup';
+                                popup.textContent = 'Text copied to clipboard!';
+                                document.body.appendChild(popup);
+                          
+                              // Auto-remove the popup after 2 seconds
+                              setTimeout(() => {
+                                popup.remove();
+                              }, 2000);
+                            }).catch((err) => {
+                              console.error('Failed to copy text: ', err);
+                            });
+                          };
+                        linkCell.appendChild(linkButton);
+                        row.appendChild(linkCell);
+                        tableBody.appendChild(row);
+                        
+                        sortTable();
                     }
-                    row.appendChild(profitCell);
-
-                    const sellerCell = document.createElement('td');
-
-                    sellerCell.textContent = auction.auction.owner.ingame_name;
-                    row.appendChild(sellerCell);
-
-                    const linkCell = document.createElement('td');
-                    const linkButton = document.createElement('button');
-                    linkButton.textContent = "SNIPE"
-
-                    linkButton.onclick = () => {
-                        const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
-                        navigator.clipboard.writeText(textToCopy).then(() => {
-                            console.log('Ctrl + V in game chat!');
-
-                            // Create a popup notification
-                            const popup = document.createElement('div');
-                            popup.className = 'popup';
-                            popup.textContent = 'Text copied to clipboard!';
-                            document.body.appendChild(popup);
-                      
-                          // Auto-remove the popup after 2 seconds
-                          setTimeout(() => {
-                            popup.remove();
-                          }, 2000);
-                        }).catch((err) => {
-                          console.error('Failed to copy text: ', err);
-                        });
-                      };
-                    linkCell.appendChild(linkButton);
-                    row.appendChild(linkCell);
-                    tableBody.appendChild(row);
-                    
-                    sortTable(); // Sort the table after fetching all auctions
-                    
                 });
-                console.log(`Fetched lowest price ingame auctions for ${batchAuctions.length} weapons in batch ${i / BATCH_SIZE + 1}`);
             }
-
+    
             console.log(`Total lowest price ingame auctions fetched: ${allAuctions.length}`);
             loadingIcon.style.display = 'none';
             cachedAuctions = allAuctions;
             lastFetchTime = currentTime;
-
+    
             // Call fetchAllWeaponAuctions again after a short delay
             setTimeout(fetchAllWeaponAuctions, 60000); // 1 minute delay
             console.log("RESTARTING");
