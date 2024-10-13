@@ -58,8 +58,10 @@ const weaponsModule = (() => {
             });
         }
 
+        // Update the table body with the sorted rows
         tableBody.innerHTML = ''; // Clear existing rows
         rows.forEach(row => tableBody.appendChild(row));
+
     }
 
     async function fetchWeaponAuctions(weapons) {
@@ -162,7 +164,34 @@ const weaponsModule = (() => {
                         const sellerCell = existingRow.cells[4];
                         sellerCell.textContent = auction.auction.owner.ingame_name;
                         
-                        const linkCell = existingRow.cells[5];
+
+                        const timeElapsedCell = existingRow.cells[5];
+                        // Calculate the time elapsed]
+
+                        const createdAt_lastSeen = new Date(auction.auction.last_seen);
+                        const currentTime_lastSeen = new Date();
+                        const timeElapsed_lastSeen = currentTime_lastSeen - createdAt_lastSeen;
+                        const hours_lastSeen = Math.floor(timeElapsed_lastSeen / (1000 * 60 * 60));
+                        const minutes_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60)) / 1000);
+
+                        const createdAt = new Date(auction.auction.updated);
+                        const currentTime = new Date();
+                        const timeElapsed = currentTime - createdAt;
+                        const hours = Math.floor(timeElapsed / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
+
+                        if (hours_lastSeen > hours_lastSeen) {
+                            const timeElapsedString_lastSeen = `${hours_lastSeen.toString().padStart(2, '0')}:${minutes_lastSeen.toString().padStart(2, '0')}:${seconds_lastSeen.toString().padStart(2, '0')}`;
+                            timeElapsedCell.textContent = timeElapsedString_lastSeen;
+                        } else {
+                            const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            timeElapsedCell.textContent = timeElapsedString;
+                        }
+
+
+                        const linkCell = existingRow.cells[6];
                         const linkButton = linkCell.querySelector('button');
                         linkButton.textContent = "SNIPE";
                         linkButton.onclick = () => {
@@ -214,6 +243,33 @@ const weaponsModule = (() => {
                         sellerCell.textContent = auction.auction.owner.ingame_name;
                         row.appendChild(sellerCell);
     
+                        // Create a new cell for the time elapsed
+                        const timeElapsedCell = document.createElement('td');
+                        row.appendChild(timeElapsedCell);
+                        // Calculate the time elapsed
+
+                        const createdAt_lastSeen = new Date(auction.auction.last_seen);
+                        const currentTime_lastSeen = new Date();
+                        const timeElapsed_lastSeen = currentTime_lastSeen - createdAt_lastSeen;
+                        const hours_lastSeen = Math.floor(timeElapsed_lastSeen / (1000 * 60 * 60));
+                        const minutes_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60)) / 1000);
+
+                        const createdAt = new Date(auction.auction.updated);
+                        const currentTime = new Date();
+                        const timeElapsed = currentTime - createdAt;
+                        const hours = Math.floor(timeElapsed / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
+
+                        if (hours_lastSeen > hours_lastSeen) {
+                            const timeElapsedString_lastSeen = `${hours_lastSeen.toString().padStart(2, '0')}:${minutes_lastSeen.toString().padStart(2, '0')}:${seconds_lastSeen.toString().padStart(2, '0')}`;
+                            timeElapsedCell.textContent = timeElapsedString_lastSeen;
+                        } else {
+                            const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            timeElapsedCell.textContent = timeElapsedString;
+                        }
+                        
                         const linkCell = document.createElement('td');
                         const linkButton = document.createElement('button');
                         linkButton.textContent = "SNIPE"
