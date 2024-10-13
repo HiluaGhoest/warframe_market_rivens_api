@@ -6,67 +6,60 @@ const weaponsModule = (() => {
     let cachedAuctions = null;
     let lastFetchTime = 0;
 
-    
+    let sortOrder = 'asc'; // Initialize sort order to ascending
+    let sortType = 'price'; // Initialize sort type to price
 
     const sortButton = document.getElementById("sort-button");
-    let sortOrder = 'asc'; // Initialize sort order to ascending
-
     sortButton.addEventListener("click", () => {
-        sortTable(sortOrder);
+        sortType = 'price'; // Toggle sort type
         sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'; // Toggle sort order
+        sortTable();
     });
 
-    function sortTable(sortOrder) {
+    const profitSortButton = document.getElementById("profit-sort-button");
+    profitSortButton.addEventListener("click", () => {
+        sortType = 'profit'; // Toggle sort type
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'; // Toggle sort order
+        sortTable();
+    });
+
+    function sortTable() {
         const tableBody = document.querySelector('#all-weapon-data table tbody');
         const rows = Array.from(tableBody.rows);
 
-        rows.sort((rowA, rowB) => {
-            const priceA = parseFloat(rowA.cells[1].textContent);
-            const priceB = parseFloat(rowB.cells[1].textContent);
+        if (sortType === 'price') {
+            rows.sort((rowA, rowB) => {
+                const priceA = parseFloat(rowA.cells[1].textContent);
+                const priceB = parseFloat(rowB.cells[1].textContent);
 
-            const secondPriceA = rowA.cells[2].textContent === '-' ? Infinity : parseFloat(rowA.cells[2].textContent);
-            const secondPriceB = rowB.cells[2].textContent === '-' ? Infinity : parseFloat(rowB.cells[2].textContent);
+                const secondPriceA = rowA.cells[2].textContent === '-' ? Infinity : parseFloat(rowA.cells[2].textContent);
+                const secondPriceB = rowB.cells[2].textContent === '-' ? Infinity : parseFloat(rowB.cells[2].textContent);
 
-            if (sortOrder === 'asc') {
+                if (sortOrder === 'asc') {
 
-                if (priceA !== priceB) return priceA - priceB;
-                else return secondPriceA - secondPriceB;
-            } else {
+                    if (priceA !== priceB) return priceA - priceB;
+                    else return secondPriceA - secondPriceB;
+                } else {
 
-                if (priceA !== priceB) return priceB - priceA;
-                else return secondPriceB - secondPriceA;
-            }
-        });
+                    if (priceA !== priceB) return priceB - priceA;
+                    else return secondPriceB - secondPriceA;
+                }
+            });
+        } else if (sortType === 'profit') {
+            rows.sort((rowA, rowB) => {
+                const profitA = rowA.cells[3].textContent === '-' ? -Infinity : parseFloat(rowA.cells[3].textContent);
+                const profitB = rowB.cells[3].textContent === '-' ? -Infinity : parseFloat(rowB.cells[3].textContent);
+
+                if (sortOrder === 'asc') {
+                    return profitA - profitB;
+                } else {
+                    return profitB - profitA;
+                }
+            });
+        }
 
         tableBody.innerHTML = ''; // Clear existing rows
         rows.forEach(row => tableBody.appendChild(row));
-    }
-
-    const profitSortButton = document.getElementById("profit-sort-button");
-    let profitSortOrder = 'asc'; // Initialize sort order to ascending
-
-    profitSortButton.addEventListener("click", () => {
-        sortTableByProfit(profitSortOrder);
-        profitSortOrder = profitSortOrder === 'asc' ? 'desc' : 'asc'; // Toggle sort order
-    });
-
-    function sortTableByProfit(sortOrder) {
-        const tableBody = document.querySelector('#all-weapon-data table tbody');
-        const rows = Array.from(tableBody.rows);
-
-        rows.sort((rowA, rowB) => {
-            const profitA = rowA.cells[3].textContent === '-' ? -Infinity : parseFloat(rowA.cells[3].textContent);
-            const profitB = rowB.cells[3].textContent === '-' ? -Infinity : parseFloat(rowB.cells[3].textContent);
-
-            if (sortOrder === 'asc') {
-                return profitA - profitB;
-            } else {
-                return profitB - profitA;
-            }
-        });
-
-            tableBody.innerHTML = ''; // Clear existing rows
-            rows.forEach(row => tableBody.appendChild(row));
     }
 
     async function fetchWeaponAuctions(weapons) {
@@ -203,6 +196,9 @@ const weaponsModule = (() => {
                     linkCell.appendChild(linkButton);
                     row.appendChild(linkCell);
                     tableBody.appendChild(row);
+                    
+                    sortTable(); // Sort the table after fetching all auctions
+                    
                 });
                 console.log(`Fetched lowest price ingame auctions for ${batchAuctions.length} weapons in batch ${i / BATCH_SIZE + 1}`);
             }
