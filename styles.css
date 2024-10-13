@@ -535,12 +535,13 @@ body.dark-mode td {
     height: fit-content;
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 2%;
     left: 0%;
     width: 20vw;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    z-index: 1001;
 }
 
 #priceChangePopup {
@@ -745,4 +746,150 @@ h1 {
 .priceWrapperPlatinumImage {
     width: 15%;
     height: 15%;
+}
+
+.sorting-buttons-loading {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+}
+
+#loading-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    animation: loading-table-letters 2s infinite;
+}
+
+@keyframes loading {
+    0% {
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    10% {
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    20% {
+        color: #666;
+        background-color: #e0e0e0;
+    }
+    30% {
+        color: #999;
+        background-color: #d0d0d0;
+    }
+    40% {
+        color: #ccc;
+        background-color: #c0c0c0;
+    }
+    50% {
+        color: #fff;
+        background-color: #fff;
+    }
+    60% {
+        color: #ccc;
+        background-color: #c0c0c0;
+    }
+    70% {
+        color: #999;
+        background-color: #d0d0d0;
+    }
+    80% {
+        color: #666;
+        background-color: #e0e0e0;
+    }
+    90% {
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    100% {
+        color: #333;
+        background-color: #f9f9f9;
+    }
+}
+
+#loading-table span {
+    animation: loading-table-letters 2s infinite;
+}
+
+@keyframes loading-table-letters {
+    0% {
+        color: #333;
+    }
+    10% {
+        color: #666;
+    }
+    20% {
+        color: #999;
+    }
+    30% {
+        color: #ccc;
+    }
+    40% {
+        color: #fff;
+    }
+    50% {
+        color: #ccc;
+    }
+    60% {
+        color: #999;
+    }
+    70% {
+        color: #666;
+    }
+    80% {
+        color: #333;
+    }
+    90% {
+        color: #666;
+    }
+    100% {
+        color: #333;
+    }
+}
+
+#loading-table span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+#loading-table span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+#loading-table span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+#loading-table span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+#loading-table span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+#loading-table span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+#loading-table span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+
+#loading-table span:nth-child(8) {
+    animation-delay: 0.7s;
+}
+
+#loading-table span:nth-child(9) {
+    animation-delay: 0.8s;
+}
+
+#loading-table span:nth-child(10) {
+    animation-delay: 0.9s;
 }

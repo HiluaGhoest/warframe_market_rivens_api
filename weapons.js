@@ -325,6 +325,7 @@ const weaponsModule = (() => {
     
             console.log(`Total lowest price ingame auctions fetched: ${allAuctions.length}`);
             loadingIcon.style.scale = '0';
+            document.getElementById('loading-table').style.opacity = '0';
             cachedAuctions = allAuctions;
             lastFetchTime = currentTime;
     
@@ -363,15 +364,12 @@ const weaponsModule = (() => {
     };
 })();
 
- // Make showWeapons globally accessible
-window.showWeapons = weaponsModule.showWeapons;
-
+//search function
 // Get the input field and the table body
 const searchInput = document.getElementById('search-input');
 const tableBody = document.querySelector('#all-weapon-data table tbody');
 
-// Add an event listener to the input field
-searchInput.addEventListener('input', () => {
+function search(){
   const searchValue = searchInput.value.toLowerCase();
 
   // Loop through each row in the table body
@@ -386,5 +384,14 @@ searchInput.addEventListener('input', () => {
       // If it doesn't, set the row to disabled
       row.style.display = 'none';
     }
-  });
 });
+}
+
+// Add an event listener to the input field
+searchInput.addEventListener('input', () => {
+    search();
+  });
+
+
+ // Make showWeapons globally accessible
+ window.showWeapons = weaponsModule.showWeapons;

@@ -146,10 +146,10 @@ function showPopup(weapon, price, previousPrice) {
 
     popup.style.opacity = "1"
 
-    // Hide the popup after 4 seconds
+    // Hide the popup after 10 seconds
     setTimeout(() => {
       popup.remove();
-    }, 4000);
+    }, 10000);
 }
 
 function updateChart() {
