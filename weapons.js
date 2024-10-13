@@ -213,6 +213,15 @@ const weaponsModule = (() => {
                               console.error('Failed to copy text: ', err);
                             });
                           };
+
+                        
+                        const trackCell = existingRow.cells[7];
+                        const trackButton = document.querySelector('button');
+                        trackButton.textContent = 'Track'
+                        trackButton.onclick = () => {
+                            addtodashboard(weaponCell.textContent, true);
+                        }
+                        
                     } else {
                         // Create a new row
                         const row = document.createElement('tr');                    
@@ -295,6 +304,18 @@ const weaponsModule = (() => {
                           };
                         linkCell.appendChild(linkButton);
                         row.appendChild(linkCell);
+                        
+                        const trackCell = document.createElement('td');
+                        const trackButton = document.createElement('button');
+                        trackButton.textContent = 'Track'
+                        trackButton.onclick = () => {
+                            addtodashboard(weaponCell.textContent, true);
+                        }
+
+                        trackCell.appendChild(trackButton);
+                        row.appendChild(trackCell);
+
+                        //  Add the row to the table
                         tableBody.appendChild(row);
                         
                         sortTable();
@@ -344,3 +365,26 @@ const weaponsModule = (() => {
 
  // Make showWeapons globally accessible
 window.showWeapons = weaponsModule.showWeapons;
+
+// Get the input field and the table body
+const searchInput = document.getElementById('search-input');
+const tableBody = document.querySelector('#all-weapon-data table tbody');
+
+// Add an event listener to the input field
+searchInput.addEventListener('input', () => {
+  const searchValue = searchInput.value.toLowerCase();
+
+  // Loop through each row in the table body
+  Array.from(tableBody.rows).forEach((row) => {
+    const weaponName = row.cells[0].textContent.toLowerCase();
+
+    // Check if the weapon name contains the search value
+    if (weaponName.includes(searchValue)) {
+      // If it does, set the row to enabled
+      row.style.display = '';
+    } else {
+      // If it doesn't, set the row to disabled
+      row.style.display = 'none';
+    }
+  });
+});

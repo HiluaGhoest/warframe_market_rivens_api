@@ -41,10 +41,10 @@
         <h1>Riven Listing</h1>
         <div class="cool-input">
             <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name">
+            <div class="animated-border"></div>
             <button onclick="addtodashboard(null, true)" class="addtoDashboard"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12" height="12" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path>
                 </svg></button>
-            <div class="animated-border"></div>
         </div>
         <button id="fetch-auctions" onclick="fetchAuctions()">Riven Fetcher</button>
         <div id="average-price">Average Price: 000</div>
@@ -53,7 +53,7 @@
     
     <div class="container" id="dashboard-container">
         <h1>Tracking Dashboard</h1>
-        <button onclick="stopfetching()" class="clear_button">Clear All</button>    
+        <button onclick="stopfetching()" class="clear_button">Clear Cache</button>    
         <br>
         <div id="trackblock_wrapper">
         </div>
@@ -63,6 +63,10 @@
         <div>
             <button id="sort-button">Sort by Price</button>
             <button id="profit-sort-button">Sort by Profit</button>
+        </div>
+        <div class="cool-input">
+            <input type="text" id="search-input" placeholder="Search for a weapon...">
+            <div class="animated-border"></div>
         </div>
         <table border="1">
             <thead>
@@ -74,6 +78,7 @@
                     <th>Snipe Seller</th>
                     <th>Time Elapsed</th>
                     <th>Snipe Auction</th>
+                    <th>Track</th>
                 </tr>
             </thead>
             <tbody id="auction-table-body">
