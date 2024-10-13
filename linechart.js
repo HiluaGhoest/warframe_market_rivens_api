@@ -14,6 +14,13 @@ if (localStorage.getItem('chartData')) {
   colors = chartData.colors;
 }
 
+// Play a sound effect
+function playSound() {
+  var soundUrl = 'audio/notification.mp3'; // Replace with your sound file URL
+  var audio = new Audio(soundUrl);
+  audio.play();
+}
+
 window.addEventListener('load', function() {
   console.log('Chart initialized');
   const ctx = document.getElementById("lineChart").getContext('2d');
@@ -54,7 +61,7 @@ window.addEventListener('load', function() {
         }]
       },
       responsive: true,
-      animation: false
+      animation: true
     }
   });
 });
@@ -106,6 +113,7 @@ window.addEventListener('lowestPriceUpdate', (event) => {
 
   // Call updateChart to refresh all weapons' data
   updateChart();
+  playSound();
 });
 
 function updateChart() {
