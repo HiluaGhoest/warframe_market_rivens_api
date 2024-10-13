@@ -61,7 +61,7 @@ window.addEventListener('load', function() {
         }]
       },
       responsive: true,
-      animation: true
+      animation: false
     }
   });
 });
