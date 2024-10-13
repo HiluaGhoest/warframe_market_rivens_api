@@ -119,7 +119,7 @@ const weaponsModule = (() => {
         }
     
         const loadingIcon = document.getElementById('loading-icon');
-        loadingIcon.style.display = 'flex';
+        loadingIcon.style.scale = '1';
     
         try {
             console.log("Fetching list of weapons");
@@ -197,7 +197,7 @@ const weaponsModule = (() => {
                         linkButton.onclick = () => {
                             const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
                             navigator.clipboard.writeText(textToCopy).then(() => {
-                                console.log('text copied to clipboard');
+                                console.log('text copied to clipboard!');
                         
                                 // Create a popup notification
                                 const popup = document.createElement('div');
@@ -303,7 +303,7 @@ const weaponsModule = (() => {
             }
     
             console.log(`Total lowest price ingame auctions fetched: ${allAuctions.length}`);
-            loadingIcon.style.display = 'none';
+            loadingIcon.style.scale = '0';
             cachedAuctions = allAuctions;
             lastFetchTime = currentTime;
     
@@ -313,7 +313,7 @@ const weaponsModule = (() => {
             return allAuctions;
         } catch (error) {
             console.error('Error fetching all weapon auctions:', error);
-            loadingIcon.style.display = 'none';
+            loadingIcon.style.scale = '0';
             return [];
         }
     }

@@ -33,28 +33,42 @@ body {
 }
 
 button {
-    background-color: #007bff;
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 1rem;
     cursor: pointer;
+    border: solid 0.1rem var(--darkModeColor);
+
+    transition: all 0.3s;
 }
 
 button:hover {
-    background-color: #3f99f8;
+    background-color: #007bff;
+    color: white;
+    border-color: none;
 }
 
 
 .button {
     
-    background-color: #007bff;
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 1rem;
     cursor: pointer;
-    text-decoration: none;
+    border: solid 0.1rem var(--darkModeColor);
+
+    transition: all 0.3s;
+}
+
+.button:hover {
+    
+    background-color: #007bff;
+    color: white;
+    border-color: none;
 }
 
 .accordion {
@@ -157,10 +171,35 @@ button:hover {
 
 .addtoDashboard {
     background-color: #32CD32;
+    position: absolute;
+    left: 84%;
+    top: 5%;
+    padding: 4% 5%;
+    border-radius: 15rem;
+    z-index: 1;
+    
+    border: 0.05rem solid transparent;
+
+    transition: all 0.3s ease;
+}
+
+.addtoDashboard svg {
+    fill: white;
+    scale: 1.5;
 }
 
 .addtoDashboard:hover {
-    background-color: #81d881;
+    background-color: #fff;
+    
+}
+
+body:not(.dark-mode) .addtoDashboard:hover {
+    
+    border: 0.05rem solid var(--darkModeColor);
+}
+
+.addtoDashboard:hover svg {
+    fill: #32CD32;
 }
 
 .clear_button {
@@ -282,6 +321,8 @@ footer {
     left: 93%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+
+    transition: all 0.3s ease-out;
 }
 
 .spinner {
@@ -380,6 +421,13 @@ body.dark-mode {
 
   #dark-mode-button {
     background-color: var(--darkModeColor);
+    transition: all 0.3s;
+    border: solid 0.1rem var(--darkModeColorSec);
+  }
+
+  #dark-mode-button:hover {
+    background-color: white;
+    color: black;
   }
 
   
@@ -415,23 +463,33 @@ header {
     align-items: center;
     justify-content: center;
 }
-
 table {
-    border-radius: 5%;
-    border-collapse: collapse;
+    
+    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background-size: 400%;
+    border: none;
+    border-radius: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
     width: 100%;
     margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+    border: 1px solid #dddddd09;
+    padding: 15px;
     text-align: center;
+    background-clip: padding-box;
 }
 
 th {
-    background-color: #f0f0f0;
+    background-color: #f7f7f7;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-radius: 20px 20px 0 0;
 }
 
 td {
@@ -440,6 +498,16 @@ td {
 
 th, td {
     transition: background-color 0.2s, color 0.2s;
+}
+
+body.dark-mode th {
+    background-color: #333;
+    border-radius: 20px 20px 0 0;
+}
+
+body.dark-mode td {
+    background-color: #444;
+    color: #fff;
 }
 
 body.dark-mode th {
@@ -557,4 +625,110 @@ body.dark-mode #priceChangePopup{
   
 .red-popup {
 color: red;
+}
+
+.track-control-panel {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: fixed;
+    top: 2%;
+    right: 0%;
+    width: 5%;
+    height: 96%;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background-size: 400%;
+    border: 1px solid #ddd;
+    transition: all 0.2s ease-in-out;
+    z-index: 1001;
+}
+
+.track-control-panel:hover {
+    width: 20%;
+}
+
+.track-control-panel svg {
+    margin-left: 15%;
+    scale: 2;
+    transform: rotate(180deg);
+    fill: white;
+    transition: all 0.3s ease;
+}
+
+.track-control-panel:hover svg {
+    margin-left: 5%;
+    transform: rotate(0deg);
+}
+
+#track-control-panel-weapons-wrapper {
+    width: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 94%;
+    align-items: center;
+    justify-content: start;
+    margin-top: 1%;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background-color: white;
+    gap: 2%;
+    
+    overflow: scroll;
+    overflow-x: hidden;
+
+    scrollbar-width: 3%;
+    scrollbar-color: white;
+}
+
+body.dark-mode #track-control-panel-weapons-wrapper {
+    background-color: var(--darkModeColor);
+}
+
+.track-control-panel:hover #track-control-panel-weapons-wrapper {
+    width: 70%;
+    padding: 5%;
+}
+
+.track-control-weapon {
+    flex-direction: column;
+    border-radius: 0.3rem;
+    padding-bottom: 0.5rem;
+
+    border-bottom: 0.1rem solid var(--darkModeColor);
+    display: none;
+}
+
+body.dark-mode #track-control-panel-weapons-wrapper .track-control-weapon{
+    border-bottom: 0.1rem solid white;
+}
+
+.track-control-panel:hover .track-control-weapon {
+    display: flex;
+}
+
+.track-control-price_wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.track-control-price_wrapper img {
+    margin-left: 5%;
+    width: 20%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+* {
+    font-family: 'Great Vibes', cursive;
+}
+
+h1 {
+    font-family: 'Great Vibes', normal;
 }

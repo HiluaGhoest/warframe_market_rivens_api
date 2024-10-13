@@ -11,24 +11,33 @@
 
     <header>
         <div class="real-header" id="real-header">
-            <button class="auctions-button button" onclick="showAuction()">Listings</button>
+            <button class="auctions-button button" onclick="showAuction()">Listing</button>
             <button class="dashboard-button button" onclick="showDashboard()">Dashboard</button>
             <button class="auctions-button button" onclick="showGraph()">Graph</button>
             <button class="dashboard-button button" onclick="showTable()">Weapons Table</button>
         </div>
     </header>
 
+    <div class="track-control-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/></svg>
+        <div id="track-control-panel-weapons-wrapper">
+            <!-- Filled with script.js -->
+        </div>
+    </div>
+
     <div id="loading-icon" style="display: none;">
         <div class="spinner"></div>
     </div>
     <div class="container" id="auction-container">
-        <h1>Riven Listings</h1>
+        <h1>Riven Listing</h1>
         <div class="cool-input">
             <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name">
+            <button onclick="addtodashboard(null, true)" class="addtoDashboard"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12" height="12" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path>
+                </svg></button>
             <div class="animated-border"></div>
         </div>
         <button id="fetch-auctions" onclick="fetchAuctions()">Riven Fetcher</button>
-        <button onclick="addtodashboard(null, true)" class="addtoDashboard">Add to dashboard</button>
         <div id="average-price">Average Price: 000</div>
         <div id="auction-results" class="accordion"></div>
     </div>
@@ -70,7 +79,7 @@
     <div id="footer">
         <p class="graph_text">
         <span>Graph Note:</span>
-        The graph might take up to 1 minute to start running.
+        You may need to reload the page to start the graph.
         <br>
         It only updates when the price of something fluctuates.
         <br>

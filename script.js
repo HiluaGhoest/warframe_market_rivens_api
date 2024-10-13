@@ -204,6 +204,27 @@ function dashboarddisplayAuctions(data, weapon_name) {
     if (!document.getElementById(trackid)) {
         document.getElementById("trackblock_wrapper").appendChild(trackblock);
     }
+
+    var trackPanelBlockid = weapon_name + "-track-panel-block";
+    var trackPanelBlock = document.getElementById(trackPanelBlockid) || document.createElement('div');
+    trackPanelBlock.id = trackPanelBlockid;
+
+    trackPanelBlock.innerHTML = `
+            <div class="track-control-weapon">
+                <p>${weapon_name}</p>
+                <div class="track-control-price_wrapper">
+                    <p>Cheapest: ${lowestPrice}</p>
+                    <img src="images/platinum.webp">
+                </div>
+            </div>
+    `;
+
+        
+    // Append to the control panel if not already added
+    if (!document.getElementById(trackPanelBlockid)) {
+        document.getElementById("track-control-panel-weapons-wrapper").appendChild(trackPanelBlock);
+    }
+
   }
 
 // Add this new function to handle removing a track block
@@ -276,39 +297,67 @@ function storeIntervals() {
 // Function to hide auctions
 function showAuction() {
     document.getElementById('auction-container').style.display = 'flex';
+    document.getElementById('auction-container').classList.add("open-transition");
+    
     document.getElementById('dashboard-container').style.display = 'none';
+    document.getElementById('dashboard-container').classList.remove("open-transition");
+
     document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('graph_interface').classList.remove("open-transition");
+
     document.getElementById('all-weapon-data').style.display = 'none';
+    document.getElementById('all-weapon-data').classList.remove("open-transition");
 }
 
 // Function to hide dashboard
 function showDashboard() {
     document.getElementById('auction-container').style.display = 'none';
+    document.getElementById('auction-container').classList.remove("open-transition");
+
     document.getElementById('dashboard-container').style.display = 'flex';
+    document.getElementById('dashboard-container').classList.add("open-transition");
+
     document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('graph_interface').classList.remove("open-transition");
+
     document.getElementById('all-weapon-data').style.display = 'none';
+    document.getElementById('auction-container').classList.remove("open-transition");
 }
 
 function showGraph() {
     document.getElementById('auction-container').style.display = 'none';
+    document.getElementById('auction-container').classList.remove("open-transition");
+
     document.getElementById('dashboard-container').style.display = 'none';
+    document.getElementById('dashboard-container').classList.remove("open-transition");
+
     document.getElementById('graph_interface').style.display = "flex";
+    document.getElementById('graph_interface').classList.add("open-transition");
+
     document.getElementById('all-weapon-data').style.display = 'none';
+    document.getElementById('auction-container').classList.remove("open-transition");
 }
 
 function showTable() {
     document.getElementById('auction-container').style.display = 'none';
+    document.getElementById('auction-container').classList.remove("open-transition");
+
     document.getElementById('dashboard-container').style.display = 'none';
+    document.getElementById('dashboard-container').classList.add("open-transition");
+
     document.getElementById('graph_interface').style.display = "none";
+    document.getElementById('graph_interface').classList.remove("open-transition");
+
     document.getElementById('all-weapon-data').style.display = 'flex';
+    document.getElementById('auction-container').classList.add("open-transition");
 }
 
 function showLoadingIcon() {
-    document.getElementById('loading-icon').style.display = 'block';
+    document.getElementById('loading-icon').style.scale = '1';
 }
 
 function hideLoadingIcon() {
-    document.getElementById('loading-icon').style.display = 'none';
+    document.getElementById('loading-icon').style.scale = '0';
 }
 
 // Function to toggle dark mode
