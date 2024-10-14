@@ -128,7 +128,7 @@ overwolf.windows.onMessageReceived.addListener((message) => {
             <p id="previousPrice_popup_text">Profit: ${profit}</p>
             </div>
             <img src="images/platinum.webp" class="priceWrapperPlatinumImage">
-            <p class="snipe-command">Ctrl + ${childNumber}</p>
+            <p class="snipe-command">${childNumber}</p>
             <p id="snipe-command-${childNumber}" style="display: none;">${text}</p>
         </div>
       </div>
