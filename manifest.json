@@ -16,14 +16,15 @@
 	},
 	"data": {
 		"start_window": "MainWindow",
-		"game_targeting": {"type": "all"},
+		"game_targeting": {"type": "dedicated", "id": 221},
 		"windows": {
 			"MainWindow": {
 				"file": "index.html",
 				"transparent": false,
 				"resizable": true,
 				"use_os_windowing": true,
-				"always_on_top": false,
+				"restore_when_game_in_foreground": false,
+				"minimize_when_game_in_foreground": true,
 				"size": {
 					"width": 1200,
 					"height": 500
@@ -39,9 +40,8 @@
 				"resizable": false,
 				"clickthrough": true,
 				"use_os_windowing": false,
-				"always_on_top": true,
 				"desktop_only": false,
-				"show_in_taskbar": true,
+				"show_in_taskbar": false,
 				"size": {
 					"width": 300,
 					"height": 1000

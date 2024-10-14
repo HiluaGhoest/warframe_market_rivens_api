@@ -147,6 +147,10 @@ const weaponsModule = (() => {
     
                     if (existingRow) {
                         // Update the existing row
+                        
+                        const weaponCell = existingRow.cells[0];
+                        weaponCell.textContent = auction.auction.weapon;;
+
                         const priceCell = existingRow.cells[1];
                         priceCell.textContent = auction.auction.starting_price;
                         
