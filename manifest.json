@@ -9,6 +9,8 @@
 		"author": "Hluaa_Ghoest",
 		"icon": "images/IconMouseOver.png",
 		"icon_gray": "images/IconMouseNormal.png",
+		"launcher_icon": "images/IconMouseOver.png",
+		"tray_icon": "images/IconMouseOver.png",
 		"permissions": [
 			"Hotkeys",
 			"Clipboard"
@@ -16,7 +18,7 @@
 	},
 	"data": {
 		"start_window": "MainWindow",
-		"game_targeting": {"type": "dedicated", "id": 221},
+		"game_targeting": {"type": "dedicated", "game_ids": [8954] },
 		"windows": {
 			"MainWindow": {
 				"file": "index.html",
@@ -25,6 +27,7 @@
 				"use_os_windowing": true,
 				"restore_when_game_in_foreground": false,
 				"minimize_when_game_in_foreground": true,
+				"desktop_only": true,
 				"size": {
 					"width": 1200,
 					"height": 500
@@ -56,47 +59,47 @@
 			"snipe_auction_1": {
 				"title": "Snipe Auction 1",
 				"action-type": "custom",
-				"default": "1"
+				"default": "Ctrl+1"
 			},
 			"snipe_auction_2": {
 				"title": "Snipe Auction 2",
 				"action-type": "custom",
-				"default": "2"
+				"default": "Ctrl+2"
 			},
 			"snipe_auction_3": {
 				"title": "Snipe Auction 3",
 				"action-type": "custom",
-				"default": "3"
+				"default": "Ctrl+3"
 			},
 			"snipe_auction_4": {
 				"title": "Snipe Auction 4",
 				"action-type": "custom",
-				"default": "4"
+				"default": "Ctrl+4"
 			},
 			"snipe_auction_5": {
 				"title": "Snipe Auction 5",
 				"action-type": "custom",
-				"default": "5"
+				"default": "Ctrl+5"
 			},
 			"snipe_auction_6": {
 				"title": "Snipe Auction 6",
 				"action-type": "custom",
-				"default": "6"
+				"default": "Ctrl+6"
 			},
 			"snipe_auction_7": {
 				"title": "Snipe Auction 7",
 				"action-type": "custom",
-				"default": "7"
+				"default": "Ctrl+7"
 			},
 			"snipe_auction_8": {
 				"title": "Snipe Auction 8",
 				"action-type": "custom",
-				"default": "8"
+				"default": "Ctrl+8"
 			},
 			"snipe_auction_9": {
 				"title": "Snipe Auction 9",
 				"action-type": "custom",
-				"default": "9"
+				"default": "Ctrl+9"
 			}
 		}
 	}
