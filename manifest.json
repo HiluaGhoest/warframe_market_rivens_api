@@ -1,0 +1,103 @@
+{
+	"manifest_version": 1,
+	"type": "WebApp",
+	"meta": {
+		"name": "Riven Tracker",
+		"version": "1.0.0",
+		"description": "The primary goal of the Riven Tracker is to help players of Warframe to snipe Riven Mods that are undervalued to sell them for a higher price.",
+		"minimum-overwolf-version": "0.199.0.15",
+		"author": "Hluaa_Ghoest",
+		"icon": "images/IconMouseOver.png",
+		"icon_gray": "images/IconMouseNormal.png",
+		"permissions": [
+			"Hotkeys",
+			"Clipboard"
+		]
+	},
+	"data": {
+		"start_window": "MainWindow",
+		"game_targeting": {"type": "all"},
+		"windows": {
+			"MainWindow": {
+				"file": "index.html",
+				"transparent": false,
+				"resizable": true,
+				"use_os_windowing": true,
+				"always_on_top": false,
+				"size": {
+					"width": 1200,
+					"height": 500
+				},
+				"min_size": {
+					"width": 1200,
+					"height": 500
+				}
+			},
+			"OverlayWindow": {
+				"file": "overlay.html",
+				"transparent": true,
+				"resizable": false,
+				"clickthrough": true,
+				"use_os_windowing": false,
+				"always_on_top": true,
+				"desktop_only": false,
+				"show_in_taskbar": true,
+				"size": {
+					"width": 300,
+					"height": 1000
+				},
+				"min_size": {
+					"width": 300,
+					"height": 1000
+				}
+			}
+		},
+		"hotkeys": {
+			"snipe_auction_1": {
+				"title": "Snipe Auction 1",
+				"action-type": "custom",
+				"default": "1"
+			},
+			"snipe_auction_2": {
+				"title": "Snipe Auction 2",
+				"action-type": "custom",
+				"default": "2"
+			},
+			"snipe_auction_3": {
+				"title": "Snipe Auction 3",
+				"action-type": "custom",
+				"default": "3"
+			},
+			"snipe_auction_4": {
+				"title": "Snipe Auction 4",
+				"action-type": "custom",
+				"default": "4"
+			},
+			"snipe_auction_5": {
+				"title": "Snipe Auction 5",
+				"action-type": "custom",
+				"default": "5"
+			},
+			"snipe_auction_6": {
+				"title": "Snipe Auction 6",
+				"action-type": "custom",
+				"default": "6"
+			},
+			"snipe_auction_7": {
+				"title": "Snipe Auction 7",
+				"action-type": "custom",
+				"default": "7"
+			},
+			"snipe_auction_8": {
+				"title": "Snipe Auction 8",
+				"action-type": "custom",
+				"default": "8"
+			},
+			"snipe_auction_9": {
+				"title": "Snipe Auction 9",
+				"action-type": "custom",
+				"default": "9"
+			}
+		}
+	}
+}

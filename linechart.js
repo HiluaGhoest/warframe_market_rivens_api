@@ -76,8 +76,6 @@ function getPrices(weapon) {
 
 window.addEventListener('lowestPriceUpdate', (event) => {
   const { weapon, _previousLowestPrice, price, timestamp } = event.detail;
-  console.log(_previousLowestPrice);
-
   // Parse the timestamp using moment
   const momentTime = moment(timestamp);
   const formattedTime = momentTime.format('HH:mm A');
@@ -111,46 +109,10 @@ window.addEventListener('lowestPriceUpdate', (event) => {
   };
   localStorage.setItem('chartData', JSON.stringify(chartData));
 
-  // Show the popup
-  showPopup(weapon, price, _previousLowestPrice);
 
   // Call updateChart to refresh all weapons' data
   updateChart();
 });
-
-// Function to show the popup
-function showPopup(weapon, price, previousPrice) {
-  
-  const popup = document.createElement('div');
-  
-    popup.innerHTML = `
-        <div id="priceChangePopup" position:fixed; top:20px; right:80%; background-color:rgba(0, 0, 0, 0.8); padding:10px; border-radius:5px; z-index:1000;">
-          <p>Price changed: ${weapon}</p>
-          <br>
-          <div id="popupPriceWrapper">
-            <p id="price_popup_text">New price: ${price}</p>
-            <img src="images/platinum.webp" class="priceWrapperPlatinumImage">
-          </div>
-        </div>
-    `
-    document.getElementById("popupWrapper").appendChild(popup);
-  if (previousPrice !== null) {
-    if (price > previousPrice) {
-      document.getElementById("price_popup_text").style.color = "green";
-      playSound('audio/raise.mp3');
-    } else if (price < previousPrice) {
-      document.getElementById("price_popup_text").style.color = "red";
-      playSound('audio/drop.mp3');
-    }
-  }
-
-    popup.style.opacity = "1"
-
-    // Hide the popup after 10 seconds
-    setTimeout(() => {
-      popup.remove();
-    }, 10000);
-}
 
 function updateChart() {
   // Update the chart

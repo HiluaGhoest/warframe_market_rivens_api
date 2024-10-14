@@ -65,10 +65,10 @@ const weaponsModule = (() => {
     }
 
     async function fetchWeaponAuctions(weapons) {
-        console.log(`Fetching auctions for ${weapons.length} weapons`);
+        // console.log(`Fetching auctions for ${weapons.length} weapons`);
         const auctionsPromises = weapons.map(weapon => 
 
-            fetch(`api/proxy.php?weapon=${encodeURIComponent(weapon.url_name)}`)
+            fetch(`https://riventracker.vercel.app/api/proxy.php?weapon=${encodeURIComponent(weapon.url_name)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (!data.payload || !data.payload.auctions) {
@@ -101,7 +101,7 @@ const weaponsModule = (() => {
                 })
         );
         const results = await Promise.all(auctionsPromises);
-        console.log(`Fetched auctions for ${results.length} weapons`);
+        // console.log(`Fetched auctions for ${results.length} weapons`);
 
         return results.filter(result => result.auction !== null);
 
@@ -124,10 +124,10 @@ const weaponsModule = (() => {
         try {
             console.log("Fetching list of weapons");
     
-            const weaponsResponse = await fetch('api/proxy.php');
+            const weaponsResponse = await fetch('https://riventracker.vercel.app/api/proxy.php');
             const weaponsData = await weaponsResponse.json();
             const weapons = weaponsData.payload.items;
-            console.log(`Fetched ${weapons.length} weapons`);
+            // console.log(`Fetched ${weapons.length} weapons`);
     
             const allAuctions = [];
             const tableBody = document.querySelector('#all-weapon-data table tbody');
@@ -138,9 +138,9 @@ const weaponsModule = (() => {
                 allAuctions.push(...batchAuctions);
     
                 batchAuctions.forEach((auction, index) => {
-                    if (index < 5) {
-                        console.log(`Auction ${index + 1}:`, auction); // Log first 5 auctions for detailed inspection
-                    }
+                    // if (index < 5) {
+                    //     console.log(`Auction ${index + 1}:`, auction); // Log first 5 auctions for detailed inspection
+                    // }
     
                     // Find the existing row for the auction
                     const existingRow = Array.from(tableBody.rows).find(row => row.cells[0].textContent === auction.weapon);
@@ -194,8 +194,10 @@ const weaponsModule = (() => {
                         const linkCell = existingRow.cells[6];
                         const linkButton = linkCell.querySelector('button');
                         linkButton.textContent = "SNIPE";
+
+                        const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
+
                         linkButton.onclick = () => {
-                            const textToCopy = `/w ${auction.auction.owner.ingame_name} WTB [${auction.weapon}] Riven for ${auction.auction.starting_price} Platinum`;
                             navigator.clipboard.writeText(textToCopy).then(() => {
                                 console.log('text copied to clipboard!');
                         

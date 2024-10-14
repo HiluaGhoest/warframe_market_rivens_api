@@ -459,7 +459,7 @@ header {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    gap: 3vh;
+    gap: 5%;
 }
 
 #all-weapon-data {
@@ -538,7 +538,7 @@ body.dark-mode td {
     position: fixed;
     top: 2%;
     left: 0%;
-    width: 20vw;
+    width: 10vw;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     z-index: 1001;
@@ -555,7 +555,7 @@ body.dark-mode td {
     transition: all 0.2s;
 
     margin: 0.5% 1% 0 0;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.200);
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
 
@@ -571,7 +571,7 @@ body.dark-mode #priceChangePopup{
     height: 100%;
     top: 5px;
     left: 0;
-    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background: linear-gradient(90deg, #1abc9c17, #3498db17, #9b59b617, #e74c3c17, #f1c40f17);
     background-size: 400%;
     z-index: 0;
     transition: all 0.3s ease;
@@ -598,7 +598,7 @@ body.dark-mode #priceChangePopup{
     left: 50%;
     transform: translate(-50%, -50%);
     
-    background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c, #f1c40f);
+    background: linear-gradient(90deg, #1abc9c17, #3498db17, #9b59b617, #e74c3c17, #f1c40f17);
     background-size: 400%;
     border: 1px solid #ddd;
     padding: 20px;
@@ -659,7 +659,7 @@ color: red;
 
 .track-control-panel svg {
     margin-left: 15%;
-    scale: 2;
+    scale: 1.5;
     transform: rotate(180deg);
     fill: white;
     transition: all 0.3s ease;

@@ -41,7 +41,7 @@ function getWeaponNamesFromCookies() {
 async function fetchAuctions() {
     showLoadingIcon();
     const weapon_name = document.querySelector('.weapon').value.toLowerCase().replace(/ /g, '_');
-    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
+    const url = `https://riventracker.vercel.app/api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
 
     try {
         const response = await fetch(url);
@@ -127,7 +127,7 @@ async function dashboardfetch(weapon_name = null) {
     }
     showLoadingIcon();
 
-    const url = `api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
+    const url = `https://riventracker.vercel.app/api/proxy.php?weapon=${encodeURIComponent(weapon_name)}`;
 
     try {
         const response = await fetch(url);
@@ -144,7 +144,7 @@ async function dashboardfetch(weapon_name = null) {
         hideLoadingIcon();
     }
 }
-
+let lowestPriceOwner = null;
 // Function to display dashboard auctions
 function dashboarddisplayAuctions(data, weapon_name) {
     // Initialize prices array for the current weapon if not already created
@@ -158,7 +158,8 @@ function dashboarddisplayAuctions(data, weapon_name) {
     }
   
     let lowestPrice = Infinity;  // Initialize with a high value
-  
+
+
     data.auctions.forEach(auction => {
       // Check if the seller is online
       if (auction.owner?.last_seen !== null) {
@@ -171,19 +172,41 @@ function dashboarddisplayAuctions(data, weapon_name) {
       // Update the lowest price if this auction has a lower price
       if (auction.buyout_price < lowestPrice) {
         lowestPrice = auction.buyout_price;
+        console.log(auction.owner)
+        lowestPriceOwner = auction.owner.ingame_name;   // Store the owner of the auction with the lowest price
       }
   
       // Include this auction in the calculations
       _prices_array[weapon_name].push(auction.buyout_price); // Store the price in the corresponding array
-    });
+});
   
     // Check if the lowest price has changed
     const previousLowestPrice = _previousLowestPrices[weapon_name] || null;
     if (!_previousLowestPrices.hasOwnProperty(weapon_name) || lowestPrice !== previousLowestPrice) {
-      // Store the new lowest price
-      _previousLowestPrices[weapon_name] = lowestPrice;
-      // Send the lowest price to linechart.js
-      window.dispatchEvent(new CustomEvent('lowestPriceUpdate', { detail: { weapon: weapon_name, _previousLowestPrice: previousLowestPrice, price: lowestPrice, timestamp: new Date().getTime() } }));
+        // Store the new lowest price
+        _previousLowestPrices[weapon_name] = lowestPrice;
+        // Send the lowest price to linechart.js
+        window.dispatchEvent(new CustomEvent('lowestPriceUpdate', { detail: { weapon: weapon_name, _previousLowestPrice: previousLowestPrice, price: lowestPrice, timestamp: new Date().getTime() } }));
+    
+        // Send auction text to copy to the overlay
+        const textToCopy = `/w ${lowestPriceOwner} WTB [${weapon_name}] Riven for ${lowestPrice} Platinum`;
+          // Dispatch the event to the overlay window
+        overwolf.windows.getWindow('OverlayWindow', function(result) {
+            if (result.status === "success") {
+            console.log("Overlay window found");
+            }
+            
+            console.log(textToCopy);
+            overwolf.windows.sendMessage('OverlayWindow', 'PriceOverlay', {
+                detail: {
+                text: textToCopy,
+                weapon: weapon_name,
+                price: lowestPrice,
+                previousLowestPrice: previousLowestPrice,
+                profit: previousLowestPrice - lowestPrice
+                }
+            }, console.log);
+            });
     }
   
     var trackid = weapon_name + "-track-block";
@@ -224,6 +247,8 @@ function dashboarddisplayAuctions(data, weapon_name) {
     if (!document.getElementById(trackPanelBlockid)) {
         document.getElementById("track-control-panel-weapons-wrapper").appendChild(trackPanelBlock);
     }
+
+
 
   }
 

@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: transparent; /* transparent background */
+    color: white;
+    position: relative;
+    height: 100px; /* Height of the overlay */
+}
+
+#overlay {
+    padding: 10px;
+}
+
+#riven-data {
+    margin-top: 10px;
+}
+
+
+#popupWrapper {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 2%;
+    left: 0%;
+    width: 100%;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    z-index: 1001;
+}
+
+#priceChangePopup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 1%;
+    position: relative;
+    left: -1%;
+    transition: all 0.2s;
+
+    margin: 0.5% 1% 0 0;
+    background-color: #24242493;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
+}
+
+body.dark-mode #priceChangePopup{
+    background-color: var(--darkModeColorSec);
+}
+
+:root {
+    --darkModeColor: #3a3a3a;
+    --darkModeColorSec: #242424;
+}
+
+#popupPriceWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+    gap: 5%;
+}
+
+.priceWrapperPlatinumImage {
+    width: 15%;
+    height: 15%;
+}
+
+.animated-popup-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 5px;
+    left: 0;
+    background: linear-gradient(90deg, #1abc9c54, #3498db54, #9b59b654, #e74c3c54, #f1c40f54);
+    background-size: 400%;
+    z-index: 0;
+    transition: all 0.3s ease;
+    animation: border-animation 6s infinite;
+}
+
+@keyframes border-animation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+#price_popup_text {
+    text-wrap: nowrap;
+}
+
+.snipe-command {
+    background: linear-gradient(90deg, #1abc9c54, #3498db54, #9b59b654, #e74c3c54, #f1c40f54);
+    background-size: 400%;
+    animation: border-animation 6s infinite;
+    padding: 5%;
+    border-radius: 0.5rem;
+    text-wrap: nowrap;
+
+    justify-self: end;
+
+}
