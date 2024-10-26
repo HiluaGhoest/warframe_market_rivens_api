@@ -2,7 +2,7 @@
 const weaponsModule = (() => {
     const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes in milliseconds
     const BATCH_SIZE = 10; // Number of weapons to fetch in a single batch
-    const dashboardWeaponsUpdateTime = 1;
+    const dashboardWeaponsUpdateTime = 25;
     const delayBetweenBatches = 5 * 1000;
 
     let searchedWeapons;
