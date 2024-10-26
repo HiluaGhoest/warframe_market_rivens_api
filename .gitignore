@@ -12,6 +12,7 @@ Thumbs.db
 # Ignore build directories
 dist/
 build/
+obfuscated/
 
 # Ignore environment files
 .env

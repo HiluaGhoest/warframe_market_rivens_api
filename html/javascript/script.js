@@ -1,10 +1,11 @@
 const { app, ipcRenderer } = require('electron');
 const fs = require('fs').promises;
 const path = require('path');
-let NewWeapon;
 
 let _prices_array = {}; // Object to hold prices for each weapon
 const _previousLowestPrices = {};
+global.newWeapon = null; // Declare the global variable
+
 // Array para armazenar as armas do dashboard
 let dashboardWeapons = [];
 

@@ -87,7 +87,7 @@ function createOverlayWindow() {
       },
   });
 
-  overlayWindow.loadFile(path.join(__dirname, 'obfuscated', 'html/overlay.html'));
+  overlayWindow.loadFile(path.join(__dirname, 'obfuscated', 'html/html/overlay.html'));
   overlayWindow.setMenu(null);
   overlayWindow.setIgnoreMouseEvents(true);
 

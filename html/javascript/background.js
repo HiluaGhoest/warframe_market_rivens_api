@@ -14,3 +14,9 @@ function checkInternetConnection() {
 
 // Request to show and move the overlay window
 ipcRenderer.send('show-overlay');
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Tab') {
+      event.preventDefault(); // Prevent the default action of the TAB key
+  }
+});

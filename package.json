@@ -5,10 +5,10 @@
   "icon": "icon.ico",
   "scripts": {
     "clean": "rimraf obfuscated dist",
-    "start": "electron .",
-    "obfuscate": "node obfuscate.js",
+    "start": "npm run obfuscate && electron .",
+    "obfuscate": "npm run clean && node obfuscate.js",
     "pack": "npm run obfuscate && electron-packager . Riven_Shark --platform=win32 --arch=x64 --out=dist --overwrite",
-    "dist": "npm run clean && npm run obfuscate && electron-builder --dir=obfuscated"
+    "dist": "npm run obfuscate && electron-builder --dir=obfuscated"
   },
   "build": {
     "appId": "com.hiluaghoest.rivenshark",

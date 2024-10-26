@@ -2,7 +2,7 @@
 const weaponsModule = (() => {
     const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes in milliseconds
     const BATCH_SIZE = 10; // Number of weapons to fetch in a single batch
-    const dashboardWeaponsUpdateTime = 25;
+    const dashboardWeaponsUpdateTime = 1;
     const delayBetweenBatches = 5 * 1000;
 
     let searchedWeapons;
@@ -170,12 +170,14 @@ const weaponsModule = (() => {
                 const batch = availableWeapons.slice(i, i + batchSize); // Apenas as armas filtradas
 
                 if (newWeapon) {
+                    console.log(newWeapon)
+                    batch.push(newWeapon); // Add newWeapon to the batch
                     const index = searchedWeapons.indexOf(newWeapon);
                     if (index !== -1) {
                         console.log(`Removing ${newWeapon} from blacklist.`);
                         searchedWeapons.splice(index, 1); // Remove a nova arma da blacklist
-                        newWeapon = null;
                     }
+                    newWeapon = null;
                 }
                 // Adicionando armas do dashboard
                 // REMOVE THE FILTERING FOR DASHBOARD WEAPONS WHEN CREATING THE CRACKED VERSION
@@ -255,28 +257,24 @@ const weaponsModule = (() => {
                         const timeElapsedCell = existingRow.cells[5];
                         // Calculate the time elapsed]
 
-                        const createdAt_lastSeen = new Date(auction.auction.last_seen);
-                        const currentTime_lastSeen = new Date();
-                        const timeElapsed_lastSeen = currentTime_lastSeen - createdAt_lastSeen;
-                        const hours_lastSeen = Math.floor(timeElapsed_lastSeen / (1000 * 60 * 60));
-                        const minutes_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60)) / 1000);
-
-                        const createdAt = new Date(auction.auction.updated);
-                        const currentTime = new Date();
-                        const timeElapsed = currentTime - createdAt;
-                        const hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-                        const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
-
-                        if (hours_lastSeen > hours_lastSeen) {
-                            const timeElapsedString_lastSeen = `${hours_lastSeen.toString().padStart(2, '0')}:${minutes_lastSeen.toString().padStart(2, '0')}:${seconds_lastSeen.toString().padStart(2, '0')}`;
-                            timeElapsedCell.textContent = timeElapsedString_lastSeen;
-                        } else {
-                            const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                            timeElapsedCell.textContent = timeElapsedString;
-                        }
-
+                        const createdAt = new Date(auction.auction.created); // Original creation date
+                        const lastSeenAt = new Date(auction.auction.owner.last_seen); // Last seen date
+                        const currentTime = new Date(); // Current time
+                        
+                        // Determine the effective start time
+                        const effectiveStartTime = createdAt > lastSeenAt ? createdAt : lastSeenAt;
+                        
+                        // Calculate the time elapsed since the effective start time
+                        const timeElapsedSinceEffectiveStart = currentTime - effectiveStartTime;
+                        const hours = Math.floor(timeElapsedSinceEffectiveStart / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeElapsedSinceEffectiveStart % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeElapsedSinceEffectiveStart % (1000 * 60)) / 1000);
+                        
+                        // Format the time elapsed string
+                        const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                        
+                        // Update the Time Elapsed cell
+                        timeElapsedCell.textContent = timeElapsedString;
 
                         const linkCell = existingRow.cells[6];
                         const linkButton = linkCell.querySelector('button');
@@ -302,7 +300,6 @@ const weaponsModule = (() => {
                               console.error('Failed to copy text: ', err);
                             });
                           };
-
                         
                         const trackCell = existingRow.cells[7];
                         const trackButton = trackCell.querySelector('button');
@@ -347,27 +344,24 @@ const weaponsModule = (() => {
                         row.appendChild(timeElapsedCell);
                         // Calculate the time elapsed
 
-                        const createdAt_lastSeen = new Date(auction.auction.last_seen);
-                        const currentTime_lastSeen = new Date();
-                        const timeElapsed_lastSeen = currentTime_lastSeen - createdAt_lastSeen;
-                        const hours_lastSeen = Math.floor(timeElapsed_lastSeen / (1000 * 60 * 60));
-                        const minutes_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds_lastSeen = Math.floor((timeElapsed_lastSeen % (1000 * 60)) / 1000);
-
-                        const createdAt = new Date(auction.auction.updated);
-                        const currentTime = new Date();
-                        const timeElapsed = currentTime - createdAt;
-                        const hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-                        const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
-
-                        if (hours_lastSeen > hours_lastSeen) {
-                            const timeElapsedString_lastSeen = `${hours_lastSeen.toString().padStart(2, '0')}:${minutes_lastSeen.toString().padStart(2, '0')}:${seconds_lastSeen.toString().padStart(2, '0')}`;
-                            timeElapsedCell.textContent = timeElapsedString_lastSeen;
-                        } else {
-                            const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                            timeElapsedCell.textContent = timeElapsedString;
-                        }
+                        const createdAt = new Date(auction.auction.created); // Original creation date
+                        const lastSeenAt = new Date(auction.auction.owner.last_seen); // Last seen date
+                        const currentTime = new Date(); // Current time
+                        
+                        // Determine the effective start time
+                        const effectiveStartTime = createdAt > lastSeenAt ? createdAt : lastSeenAt;
+                        
+                        // Calculate the time elapsed since the effective start time
+                        const timeElapsedSinceEffectiveStart = currentTime - effectiveStartTime;
+                        const hours = Math.floor(timeElapsedSinceEffectiveStart / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeElapsedSinceEffectiveStart % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeElapsedSinceEffectiveStart % (1000 * 60)) / 1000);
+                        
+                        // Format the time elapsed string
+                        const timeElapsedString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                        
+                        // Update the Time Elapsed cell
+                        timeElapsedCell.textContent = timeElapsedString;
                         
                         const linkCell = document.createElement('td');
                         const linkButton = document.createElement('button');
