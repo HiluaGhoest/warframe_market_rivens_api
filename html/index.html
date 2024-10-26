@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riven Shark</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <script>
+            const { shell } = require('electron'); // Import the shell module
+    
+            function openLink(event) {
+                event.preventDefault(); // Prevent default link behavior
+                shell.openExternal(event.target.href); // Open the link in the default browser
+            }
+        </script>
+        <div class="real-header" id="real-header">
+            <a style="right: 90%; position: absolute;" class="logo" href="https://discord.gg/ZuBveRSHkg" target="_blank"><img src="images/icon.ico" alt="" height="70rem" ></a>
+            <button class="settings-button button" onclick="showSettings()"><img src="https://s2.svgbox.net/materialui.svg?ic=settings" style="width: 1rem;"></button>
+            <button class="auctions-button button" onclick="showAuction()">Listing</button>
+            <button class="dashboard-button button" onclick="showDashboard()">Dashboard</button>
+            <button class="auctions-button button" onclick="showGraph()">Graph</button>
+            <button class="dashboard-button button" onclick="showTable()">Weapons Table</button>
+        </div>
+        <div class="support_us">
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#bf73f5', 'A0A3152CD8');kofiwidget2.draw();</script> 
+        </div>
+    </header>
+    
+    <div id="popup-message" style="opacity: 0; background-color: transparent; color: black; padding: 10px; border-radius: 5px; margin: -1% 0 1% 0; text-align: center;">
+        <span id="popup-text">Blank</span>
+    </div>
+
+    <div class="track-control-panel" id="track-control-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"/></svg>
+        <div id="track-control-panel-weapons-wrapper">
+            <!-- Filled with script.js -->
+        </div>
+    </div>
+
+    <div id="loading-icon" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container" id="settings-container" style="display: none;">
+        <div>
+            <p>Settings</p>
+            <div>
+                <p>Overlay Settings</p>
+                <hr>
+                <div>
+                    <div>
+                        <p>Overlay</p>
+                        <button>On / Off</button>
+                    </div>
+    
+                    <div>
+                        <p>Overlay Volume</p>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="100" class="slider" id="volume-slider">
+                            <div class="slider-value" id="volume-slider-value"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Overlay Threshold</p>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="50" value="0" class="slider" id="threshold-slider">
+                            <div class="slider-value" id="sliderValue"></div>
+                        </div>
+                    </div>
+                </div>
+                <p>Overlay Settings</p>
+                <hr>
+                <div>
+                    <div>
+                        <p>Overlay</p>
+                        <button>On / Off</button>
+                    </div>
+    
+                    <div>
+                        <p>Overlay Volume</p>
+                        <button>Volume</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="auction-container">
+        <h1>Riven Listing</h1>
+        <div class="cool-input">
+            <input type="text" class="weapon" name="weapon" id="weapon" placeholder="Enter weapon name">
+            <div class="animated-border"></div>
+            <button onclick="addtodashboard(null, true)" class="addtoDashboard"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12" height="12" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"></path>
+                </svg></button>
+        </div>
+        <button id="fetch-auctions" onclick="fetchAuctions()">List Auctions</button>
+        <div id="average-price">Average Price: 000</div>
+        <div id="auction-results" class="accordion"></div>
+    </div>
+    
+    <div class="container" id="dashboard-container">
+        <h1>Tracking Dashboard</h1>
+        <br>
+        <div id="trackblock_wrapper">
+        </div>
+    </div>
+
+    <div id="all-weapon-data" style="display: none;" class="container">
+        <div class="sorting-buttons-loading">
+            <button id="sort-button">Sort by Price</button>
+            <p id="loading-table" style="display: none;">Loading...</p>
+            <button id="profit-sort-button">Sort by Profit</button>
+        </div>
+        <div class="cool-input">
+            <input type="text" id="search-input" placeholder="Search for a weapon...">
+            <div class="animated-border"></div>
+        </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Weapon</th>
+                    <th>Snipe Price</th>
+                    <th>Flipping price</th>
+                    <th>Proft</th>
+                    <th>Snipe Seller</th>
+                    <th>Time Elapsed</th>
+                    <th>Snipe Auction</th>
+                    <th>Track</th>
+                </tr>
+            </thead>
+            <tbody id="auction-table-body">
+                <!-- This will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="graph_interface" style="display: none;">
+        <canvas id="lineChart" width="250" height="70"></canvas>
+        
+    <div id="footer">
+        <p class="graph_text">
+        <span>Graph Note:</span>
+        It only updates when the price of something fluctuates.
+        </p>
+    </div>
+    </div>  
+    <div id="popupWrapper" class="animated-popup-border">
+        
+    </div>
+
+    <div id="log_in_interface" class="container" style="display: none;">
+        <p>WORK IN PROGRESS, IM ONLY ONE</p>
+        <form id="login-form" style="display: none;">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.1.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+<script src="javascript/proxyCORS.js"></script>
+<script src="javascript/linechart.js"></script>
+<script src="javascript/script.js"></script>
+<script src="javascript/weapons.js"></script>
+<script src="javascript/staticpopup.js"></script>
+
+<script src="javascript/background.js"></script>
+<script src="javascript/slider.js"></script>
+</html>

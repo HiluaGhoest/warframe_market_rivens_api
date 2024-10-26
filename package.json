@@ -1,0 +1,66 @@
+{
+  "name": "riven_shark",
+  "version": "2.5.0",
+  "main": "index.js",
+  "icon": "icon.ico",
+  "scripts": {
+    "clean": "rimraf obfuscated dist",
+    "start": "electron .",
+    "obfuscate": "node obfuscate.js",
+    "pack": "npm run obfuscate && electron-packager . Riven_Shark --platform=win32 --arch=x64 --out=dist --overwrite",
+    "dist": "npm run clean && npm run obfuscate && electron-builder --dir=obfuscated"
+  },
+  "build": {
+    "appId": "com.hiluaghoest.rivenshark",
+    "icon": "icon.ico",
+    "productName": "RivenShark",
+    "asar": true,
+    "files": [
+      "obfuscated/**/*",
+      "index.js"
+    ],
+    "extraResources": [
+      {
+        "from": "server",
+        "to": "server",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
+  "author": "Hilua_Ghoest",
+  "license": "ISC",
+  "description": "Riven Shark",
+  "devDependencies": {
+    "electron": "^33.0.1",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2",
+    "javascript-obfuscator": "^4.1.1",
+    "rimraf": "^6.0.1",
+    "terser": "^5.36.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "countly-sdk-web": "^24.4.1",
+    "express": "^4.21.1",
+    "http-proxy": "^1.18.1",
+    "node-machine-id": "^1.1.12",
+    "uglify-js": "^3.19.3",
+    "universal-analytics": "^0.5.3"
+  }
+}
